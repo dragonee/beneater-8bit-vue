@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django_extensions',
 
     'beneater.apps.common',
-    'beneater.apps.hello_world'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
