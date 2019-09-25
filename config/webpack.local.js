@@ -7,6 +7,8 @@ const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 
 module.exports = webpackMerge(baseConfig, {
+    devtool: 'source-map',
+
     output: {
         path: path.resolve(__dirname, paths.localOutputDir),
         filename: '[name].[chunkhash].js'

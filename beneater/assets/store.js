@@ -1,6 +1,7 @@
 import ClockModule from './modules/clock'
 import RegisterModule from './modules/register'
 import InstructionRegisterModule from './modules/instruction_register'
+import MemoryAddressRegisterModule from './modules/memory_address_register'
 
 const merge = (...args) => {
     return args.reduce((list, next) => {
@@ -24,6 +25,7 @@ export default {
         bo: true,
         ii: true,
         io: true,
+        mi: true,
         
         bus:  [false, false, false, false, false, false, false, false]
     },
@@ -52,6 +54,13 @@ export default {
             ro: 'io',
             CLK: 'CLK',
             CLR: 'CLR'
+        }),
+        
+        memoryAddressRegister: MemoryAddressRegisterModule({
+            namespace: 'memoryAddressRegister',
+            mi: 'mi', 
+            CLK:'CLK', 
+            CLR: 'CLR'
         })
     },
     
@@ -61,6 +70,8 @@ export default {
         ao: (s) => s.ao, // low act
         bi: (s) => s.bi, // low act
         bo: (s) => s.bo, // low act
+        
+        mi: (s) => s.mi, // low act
         
         ii: (s) => s.ii, // low act
         io: (s) => s.io, // low act

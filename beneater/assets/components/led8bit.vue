@@ -1,6 +1,6 @@
 <template>
     <span>
-        <led v-for="(n, index) in 8" :key="n" :on="reverse ? word[7 - index] : word[index]" :color="computedColor(index)"></led>
+        <led v-for="(n, index) in bits" :key="n" :on="reverse ? word[bits - 1 - index] : word[index]" :color="computedColor(index)"></led>
     </span>
 </template>
 <script>
@@ -27,7 +27,12 @@ export default {
             default: 'red'
         },
         
-        reverse: Boolean
+        reverse: Boolean,
+        
+        bits: {
+            type: Number,
+            default: 8
+        }
     }
 }
 </script>

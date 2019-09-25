@@ -3,7 +3,7 @@
         <span v-for="item in config">
             
             <button  @click="toggle(item)">{{ item.label }}</button>
-            <led :on="state(item)" :color="item.color || 'red'"></led>
+            <led v-if="!options.withoutLED" :on="state(item)" :color="item.color || 'red'"></led>
         </span>
     </div>
 </template>

@@ -15,6 +15,8 @@
         <switches :config="config" :options="SWITCHES_OPTS"></switches>
 
         <switches :config="busconfig" :options="BUS_OPTS"></switches>
+        
+        <memory-address-register></memory-address-register>
     </div>
 </template>
 <script>
@@ -23,6 +25,7 @@ import { mapState, mapGetters } from 'vuex'
 import Clock from './clock'
 import LED8Bit from './led8bit'
 import Switches from './switches'
+import MemoryAddressRegister from './memory_address_register_module'
 
 const SWITCHES_OPTS = {
     mutation: 'toggle',
@@ -47,7 +50,8 @@ export default {
     components: {
         Clock,
         led8bit: LED8Bit,
-        Switches
+        Switches,
+        MemoryAddressRegister
     },
     
     computed: {
@@ -64,6 +68,8 @@ export default {
             { key: 'bo', label: 'BO' },
             { key: 'ii', label: 'II' },
             { key: 'io', label: 'IO' },
+            { key: 'mi', label: 'MI' },
+
         ],
         
         busconfig: () => [

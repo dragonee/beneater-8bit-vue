@@ -1,7 +1,8 @@
 <template>
     <div class="clock">
         <div>
-            <input v-model="miliseconds">
+            <input v-model="miliseconds"> 
+            <label><input type="checkbox" v-model="enabled"> Enable astable generator</label>
         </div>
         
         <div>
@@ -37,6 +38,16 @@ export default {
             
             set(value) {
                 this.$store.commit('clock/setMiliseconds', value)
+            }
+        },
+        
+        enabled: {
+            get() {
+                return this.$store.state.clock.vcc
+            },
+            
+            set(value) {
+                this.$store.commit('clock/setVoltage', value)
             }
         },
         

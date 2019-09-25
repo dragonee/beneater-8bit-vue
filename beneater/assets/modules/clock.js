@@ -18,6 +18,8 @@ export default {
         manualButton: false,
         
         manualMode: false,
+        
+        vcc: true,
     },
     
     modules: {
@@ -65,6 +67,10 @@ export default {
         
         setMiliseconds(state, payload) {
             state.miliseconds = payload
+        },
+        
+        setVoltage(state, payload) {
+            state.vcc = !!payload
         }
     },
     
@@ -73,7 +79,9 @@ export default {
             while(true) {
                 await promisifyTimeout(state.miliseconds)
             
-                commit('impulse', !state.astable)
+                if (state.vcc) {
+                    commit('impulse', !state.astable)
+                }
             }
         }
     }
