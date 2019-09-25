@@ -1,7 +1,5 @@
 <template>
-    <div class="board">
-        <h1>Hello from the Vue component</h1>
-    
+    <div class="board">    
         <led :on="output" color="red"></led>
 
         <clock></clock>
