@@ -3,7 +3,7 @@ import sn74245 from '../logic/sn74245'
 import register from './register'
 
 export default ({ namespace, ri, ro, CLK='CLK', CLR='CLR' }) => {
-    let reg = register({ namespace, ro, ro, CLK, CLR })
+    let reg = register({ namespace, ri, ro, CLK, CLR })
     
     reg.modules.buffer = sn74245({
         pin1: () => true,
