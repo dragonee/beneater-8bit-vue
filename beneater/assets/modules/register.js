@@ -23,7 +23,7 @@ export default ({ namespace, ri, ro, CLK='CLK', CLR='CLR' }) => ({
             ]
         },
         
-        a(state, getters) {
+        out(state, getters) {
             return [
                 getters['latchTop/pin6'],
                 getters['latchTop/pin5'],
