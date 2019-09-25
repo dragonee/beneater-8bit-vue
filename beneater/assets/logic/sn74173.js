@@ -18,12 +18,12 @@ export default ({
     return {
         namespaced: true,
         
-        state: {
+        state: () => ({
             d1: false,
             d2: false,
             d3: false,
             d4: false
-        },
+        }),
         
         mutations: {
             setState(state, payload) {    

@@ -15,6 +15,12 @@ const merge = (...args) => {
 
 export default {
     state: {
+        ai: true,
+        ao: true,
+        bi: true,
+        bo: true,
+        
+        bus:  [false, false, false, false, false, false, false, false]
     },
     
     modules: {
@@ -38,15 +44,26 @@ export default {
     
     getters: {
         hlt: () => false,
-        ai: () => true, // low act
-        ao: () => true, // low act
-        bi: () => true, // low act
-        bo: () => true, // low act
+        ai: (s) => s.ai, // low act
+        ao: (s) => s.ao, // low act
+        bi: (s) => s.bi, // low act
+        bo: (s) => s.bo, // low act
 
-        bus: (state, getters) => merge(getters['registerA/bus'])
+        bus: (state, getters) => merge(getters['registerA/bus'], state.bus)
     },
     
     mutations: {
+        toggle(state, payload) {
+            state[payload.key] = !state[payload.key]
+        },
+        
+        setBus(state, payload) {
+            let newArr = [...state.bus]
+            
+            newArr[payload.key] = !newArr[payload.key]
+            
+            state.bus = newArr
+        }
     },
     
     actions: {

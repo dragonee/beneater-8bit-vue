@@ -10,7 +10,9 @@
         <led8bit :word="aout" color="red"></led8bit> A<br>
         <led8bit :word="bout" color="red"></led8bit> B<br>
 
+        <switches :config="config" :options="SWITCHES_OPTS"></switches>
 
+        <switches :config="busconfig" :options="BUS_OPTS"></switches>
     </div>
 </template>
 <script>
@@ -18,19 +20,59 @@ import { mapState, mapGetters } from 'vuex'
 
 import Clock from './clock'
 import LED8Bit from './led8bit'
+import Switches from './switches'
+
+const SWITCHES_OPTS = {
+    mutation: 'toggle',
+    getter($store) {
+        return (item) => $store.state[item.key]
+    }
+}
+
+const BUS_OPTS = {
+    mutation: 'setBus',
+    getter($store) {
+        return (item) => $store.state.bus[item.key]
+    }
+}
 
 export default {
+    data: () => ({
+        SWITCHES_OPTS,
+        BUS_OPTS
+    }),
+    
     components: {
         Clock,
-        led8bit: LED8Bit
+        led8bit: LED8Bit,
+        Switches
     },
     
     computed: {
         ...mapGetters('clock', ['output']),
         ...mapGetters(['bus']),
         ...mapGetters('registerA', {aout: 'out'}),
-        ...mapGetters('registerB', {bout: 'out'})
+        ...mapGetters('registerB', {bout: 'out'}),
+        
+        config: () => [
+            { key: 'ai', label: 'AI' },
+            { key: 'ao', label: 'AO' },
+            { key: 'bi', label: 'BI' },
+            { key: 'bo', label: 'BO' },
+        ],
+        
+        busconfig: () => [
+            { key: 7, label: 'Bus7' },
+            { key: 6, label: 'Bus6' },
+            { key: 5, label: 'Bus5' },
+            { key: 4, label: 'Bus4' },
+            { key: 3, label: 'Bus3' },
+            { key: 2, label: 'Bus2' },
+            { key: 1, label: 'Bus1' },
+            { key: 0, label: 'Bus0' },
 
+
+        ]
     }
 }
 </script>
