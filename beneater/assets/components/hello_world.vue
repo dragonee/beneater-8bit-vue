@@ -6,9 +6,11 @@
 
         <clock></clock>
         
-        <led8bit :word="bus" color="blue"></led8bit> BUS<br>
-        <led8bit :word="aout" color="red"></led8bit> A<br>
-        <led8bit :word="bout" color="red"></led8bit> B<br>
+        <led8bit :word="bus" color="blue" :reverse="true"></led8bit> BUS<br>
+        <led8bit :word="aout" color="red" :reverse="true"></led8bit> A<br>
+        <led8bit :word="bout" color="red" :reverse="true"></led8bit> B<br>
+        <led8bit :word="iout" :color="['blue', 'blue', 'blue', 'blue', 'yellow', 'yellow', 'yellow', 'yellow']" :reverse="true"></led8bit> I<br>
+
 
         <switches :config="config" :options="SWITCHES_OPTS"></switches>
 
@@ -53,12 +55,15 @@ export default {
         ...mapGetters(['bus']),
         ...mapGetters('registerA', {aout: 'out'}),
         ...mapGetters('registerB', {bout: 'out'}),
+        ...mapGetters('registerI', {iout: 'out'}),
         
         config: () => [
             { key: 'ai', label: 'AI' },
             { key: 'ao', label: 'AO' },
             { key: 'bi', label: 'BI' },
             { key: 'bo', label: 'BO' },
+            { key: 'ii', label: 'II' },
+            { key: 'io', label: 'IO' },
         ],
         
         busconfig: () => [
@@ -70,8 +75,6 @@ export default {
             { key: 2, label: 'Bus2' },
             { key: 1, label: 'Bus1' },
             { key: 0, label: 'Bus0' },
-
-
         ]
     }
 }

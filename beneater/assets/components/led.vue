@@ -17,7 +17,7 @@ export default {
         on: Boolean,
         color: {
             validator(value) {
-                return ['red', 'green', 'blue'].indexOf(value) !== -1
+                return ['red', 'green', 'blue', 'yellow'].indexOf(value) !== -1
             },
             
             default: 'red'

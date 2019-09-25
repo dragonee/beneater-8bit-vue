@@ -1,5 +1,6 @@
 import ClockModule from './modules/clock'
 import RegisterModule from './modules/register'
+import InstructionRegisterModule from './modules/instruction_register'
 
 const merge = (...args) => {
     return args.reduce((list, next) => {
@@ -13,12 +14,16 @@ const merge = (...args) => {
     }, [false, false, false, false, false, false, false, false])
 }
 
+// bo->ai does not work
+
 export default {
     state: {
         ai: true,
         ao: true,
         bi: true,
         bo: true,
+        ii: true,
+        io: true,
         
         bus:  [false, false, false, false, false, false, false, false]
     },
@@ -40,6 +45,14 @@ export default {
             CLK: 'CLK',
             CLR: 'CLR'
         }),
+        
+        registerI: InstructionRegisterModule({
+            namespace: 'registerI',
+            ri: 'ii',
+            ro: 'io',
+            CLK: 'CLK',
+            CLR: 'CLR'
+        })
     },
     
     getters: {
@@ -48,8 +61,11 @@ export default {
         ao: (s) => s.ao, // low act
         bi: (s) => s.bi, // low act
         bo: (s) => s.bo, // low act
+        
+        ii: (s) => s.ii, // low act
+        io: (s) => s.io, // low act
 
-        bus: (state, getters) => merge(getters['registerA/bus'], state.bus)
+        bus: (state, getters) => merge(getters['registerA/bus'], getters['registerI/bus'], state.bus)
     },
     
     mutations: {
