@@ -21,6 +21,7 @@ export default ({ namespace, mi, CLK='CLK', CLR='CLR' }) => ({
             ]
         },
         
+        // is program being executed?
         prog(state, getters) {
             return !state.manualAddressingMode
         },

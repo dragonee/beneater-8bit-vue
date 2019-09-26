@@ -2,8 +2,8 @@
     <div>    
         <div>
             <button @click="setManualAddressingMode(prog)">PROG</button> 
-            <led :on="!prog" color="red"></led>
-            <led :on="prog" color="green"></led>
+            <led :on="prog" color="red"></led>
+            <led :on="!prog" color="green"></led>
         </div>
         
         <div>
