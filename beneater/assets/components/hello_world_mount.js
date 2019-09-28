@@ -17,6 +17,13 @@ vuex_store.watch((s, g) => g['clock/output'], (val) => {
     }
 })
 
+vuex_store.watch((s, g) => g['memory/multiplexerManual/pin12'], (val) => {
+    console.log('memory/multiplexerManual/pin12', val)
+    if (!val) {
+        vuex_store.dispatch('WE')
+    }
+})
+
 new Vue({
    render: h => h(HelloWorldComponent),
    store: vuex_store,

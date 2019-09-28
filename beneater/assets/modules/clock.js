@@ -3,10 +3,7 @@ import sn7408 from '../logic/sn7408'
 import sn7432 from '../logic/sn7432'
 
 
-const promisifyTimeout = (timeout) => new Promise(
-    (resolve) => setTimeout(resolve, timeout)
-) 
-
+import { promisifyTimeout } from '../util'
 
 export default {
     namespaced: true,

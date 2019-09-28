@@ -25,6 +25,11 @@ export default ({ namespace, mi, CLK='CLK', CLR='CLR' }) => ({
         prog(state, getters) {
             return !state.manualAddressingMode
         },
+        
+        a0: (state, getters) => getters.addr[0],
+        a1: (state, getters) => getters.addr[1],
+        a2: (state, getters) => getters.addr[2],
+        a3: (state, getters) => getters.addr[3],
     },
     
     modules: {
@@ -67,6 +72,10 @@ export default ({ namespace, mi, CLK='CLK', CLR='CLR' }) => ({
             newArr[payload.key] = !newArr[payload.key]
             
             state.address = newArr
+        },
+        
+        setAddrWord(state, payload) {
+            state.address = [...payload]
         },
         
         setManualAddressingMode(state, payload) {

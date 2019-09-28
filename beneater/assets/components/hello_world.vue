@@ -15,6 +15,9 @@
         <switches :config="busconfig" :options="BUS_OPTS"></switches>
         
         <memory-address-register></memory-address-register>
+        <memory></memory>
+        
+        <button @click="loadProgram">LOAD PROGRAM</button>
     </div>
 </template>
 <script>
@@ -24,6 +27,9 @@ import Clock from './clock'
 import LED8Bit from './led8bit'
 import Switches from './switches'
 import MemoryAddressRegister from './memory_address_register_module'
+import Memory from './memory_module'
+
+import { offsetToAddr } from '../util'
 
 const SWITCHES_OPTS = {
     mutation: 'toggle',
@@ -39,17 +45,26 @@ const BUS_OPTS = {
     }
 }
 
+const PROGRAM = [
+    0b00110011,
+    0b11110011,
+    0b00111100,
+    0b00110101,
+].map(x => offsetToAddr(x, 8))
+
 export default {
     data: () => ({
         SWITCHES_OPTS,
-        BUS_OPTS
+        BUS_OPTS,
+        PROGRAM
     }),
     
     components: {
         Clock,
         led8bit: LED8Bit,
         Switches,
-        MemoryAddressRegister
+        MemoryAddressRegister,
+        Memory
     },
     
     computed: {
@@ -67,6 +82,8 @@ export default {
             { key: 'ii', label: 'II' },
             { key: 'io', label: 'IO' },
             { key: 'mi', label: 'MI' },
+            { key: 'ro', label: 'RO' },
+            { key: 'ri', label: 'RI' },
 
         ],
         
@@ -80,6 +97,12 @@ export default {
             { key: 1, label: 'Bus1' },
             { key: 0, label: 'Bus0' },
         ]
+    },
+    
+    methods: {
+        loadProgram() {
+            this.$store.dispatch('program', this.PROGRAM)
+        }
     }
 }
 </script>
