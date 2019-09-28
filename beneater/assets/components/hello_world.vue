@@ -7,8 +7,10 @@
         <led8bit :word="bus" color="blue" :reverse="true"></led8bit> BUS<br>
         <led8bit :word="aout" color="red" :reverse="true"></led8bit> A<br>
         <led8bit :word="bout" color="red" :reverse="true"></led8bit> B<br>
+        
+        <alu></alu>
+        
         <led8bit :word="iout" :color="['blue', 'blue', 'blue', 'blue', 'yellow', 'yellow', 'yellow', 'yellow']" :reverse="true"></led8bit> I<br>
-
 
         <switches :config="config" :options="SWITCHES_OPTS"></switches>
 
@@ -31,6 +33,7 @@ import Switches from './switches'
 import MemoryAddressRegister from './memory_address_register_module'
 import Memory from './memory_module'
 import ProgramCounter from './program_counter'
+import ALU from './alu'
 
 import { offsetToAddr } from '../util'
 
@@ -68,7 +71,8 @@ export default {
         Switches,
         MemoryAddressRegister,
         Memory,
-        ProgramCounter
+        ProgramCounter,
+        alu: ALU,
     },
     
     computed: {
@@ -91,6 +95,9 @@ export default {
             { key: 'ce', label: 'CE' },
             { key: 'co', label: 'CO' },
             { key: 'j', label: 'J' },
+            { key: 'fi', label: 'FI' },
+            { key: 'eo', label: 'EO' },
+            { key: 'su', label: 'SU' },
         ],
         
         busconfig: () => [

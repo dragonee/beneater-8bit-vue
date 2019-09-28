@@ -4,6 +4,7 @@ import InstructionRegisterModule from './modules/instruction_register'
 import MemoryAddressRegisterModule from './modules/memory_address_register'
 import MemoryModule from './modules/memory'
 import ProgramCounterModule from './modules/program_counter'
+import ALUModule from './modules/alu'
 
 import { offsetToAddr, promisifyTimeout } from './util'
 
@@ -37,6 +38,10 @@ export default {
         ce: false,
         co: true,
         j: true,
+        
+        fi: true,
+        eo: true,
+        su: false,
         
         bus:  [false, false, false, false, false, false, false, false]
     },
@@ -93,6 +98,17 @@ export default {
             j: 'j',
             CLK: 'CLK',
             CLR: 'CLR'
+        }),
+        
+        alu: ALUModule({
+            namespace: 'alu',
+            fi: 'fi',
+            su: 'su',
+            eo: 'eo',
+            a: 'registerA/out',
+            b: 'registerB/out',
+            CLK: 'CLK',
+            CLR: 'CLR'
         })
     },
     
@@ -114,12 +130,17 @@ export default {
         ce: (s) => s.ce, // high act
         co: (s) => s.co, // low act
         j: (s) => s.j, // low act
+        
+        fi: (s) => s.fi, // low act
+        eo: (s) => s.eo, // low act
+        su: (s) => s.su, // high act
 
         bus: (state, getters) => merge(
             getters['registerA/bus'], 
             getters['registerI/bus'], 
             getters['memory/bus'],
             getters['programCounter/bus'],
+            getters['alu/bus'],
             state.bus
         )
     },
