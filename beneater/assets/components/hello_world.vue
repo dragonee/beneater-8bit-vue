@@ -18,6 +18,8 @@
         <memory></memory>
         
         <button @click="loadProgram">LOAD PROGRAM</button>
+        
+        <program-counter></program-counter>
     </div>
 </template>
 <script>
@@ -28,6 +30,7 @@ import LED8Bit from './led8bit'
 import Switches from './switches'
 import MemoryAddressRegister from './memory_address_register_module'
 import Memory from './memory_module'
+import ProgramCounter from './program_counter'
 
 import { offsetToAddr } from '../util'
 
@@ -64,7 +67,8 @@ export default {
         led8bit: LED8Bit,
         Switches,
         MemoryAddressRegister,
-        Memory
+        Memory,
+        ProgramCounter
     },
     
     computed: {
@@ -84,7 +88,9 @@ export default {
             { key: 'mi', label: 'MI' },
             { key: 'ro', label: 'RO' },
             { key: 'ri', label: 'RI' },
-
+            { key: 'ce', label: 'CE' },
+            { key: 'co', label: 'CO' },
+            { key: 'j', label: 'J' },
         ],
         
         busconfig: () => [

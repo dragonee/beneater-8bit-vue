@@ -3,6 +3,7 @@ import RegisterModule from './modules/register'
 import InstructionRegisterModule from './modules/instruction_register'
 import MemoryAddressRegisterModule from './modules/memory_address_register'
 import MemoryModule from './modules/memory'
+import ProgramCounterModule from './modules/program_counter'
 
 import { offsetToAddr, promisifyTimeout } from './util'
 
@@ -32,6 +33,10 @@ export default {
         
         ro: true,
         ri: false,
+        
+        ce: false,
+        co: true,
+        j: true,
         
         bus:  [false, false, false, false, false, false, false, false]
     },
@@ -79,6 +84,15 @@ export default {
             a2: 'memoryAddressRegister/a2', 
             a3: 'memoryAddressRegister/a3', 
             CLK: 'CLK'
+        }),
+        
+        programCounter: ProgramCounterModule({
+            namespace: 'programCounter',
+            ce: 'ce',
+            co: 'co',
+            j: 'j',
+            CLK: 'CLK',
+            CLR: 'CLR'
         })
     },
     
@@ -96,11 +110,16 @@ export default {
         
         ri: (s) => s.ri, // low act
         ro: (s) => s.ro, // high act
+        
+        ce: (s) => s.ce, // high act
+        co: (s) => s.co, // low act
+        j: (s) => s.j, // low act
 
         bus: (state, getters) => merge(
             getters['registerA/bus'], 
             getters['registerI/bus'], 
             getters['memory/bus'],
+            getters['programCounter/bus'],
             state.bus
         )
     },
