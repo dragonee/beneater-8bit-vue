@@ -1,12 +1,7 @@
 // fill array with values
 const n = (k) => Array(k).fill(false)
 
-// Create numeric address from array of true/false values
-// e.g. [t,f,t] becomes 5
-const addr = (arr) => arr.reduce(({ sum, power }, val) => ({ 
-    sum: sum + power * (val ? 1: 0),
-    power: power * 2
-}), { sum: 0, power: 1}).sum
+import { addrToOffset as addr } from '../util'
 
 export default ({ 
     pin1 = () => undefined, // A0

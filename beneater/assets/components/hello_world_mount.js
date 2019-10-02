@@ -18,9 +18,20 @@ vuex_store.watch((s, g) => g['clock/output'], (val) => {
 })
 
 vuex_store.watch((s, g) => g['memory/multiplexerManual/pin12'], (val) => {
-    console.log('memory/multiplexerManual/pin12', val)
     if (!val) {
         vuex_store.dispatch('WE')
+    }
+})
+
+vuex_store.watch((s, g) => g['control/resetNand/pin3'], (val) => {
+    if (!val) {
+        vuex_store.dispatch('C_MICROINSTRUCTION_CLR')
+    }
+})
+
+vuex_store.watch((s, g) => g['control/resetNand/pin11'], (val) => {
+    if (val) {
+        vuex_store.dispatch('CLR')
     }
 })
 
@@ -29,6 +40,7 @@ new Vue({
    store: vuex_store,
    
    mounted() {
+       this.$store.dispatch('programMicrocode')
        this.$store.dispatch('clock/start')
    }
 }).$mount('#app')

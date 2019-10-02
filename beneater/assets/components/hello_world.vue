@@ -12,8 +12,6 @@
         
         <led8bit :word="iout" :color="['blue', 'blue', 'blue', 'blue', 'yellow', 'yellow', 'yellow', 'yellow']" :reverse="true"></led8bit> I<br>
 
-        <switches :config="config" :options="SWITCHES_OPTS"></switches>
-
         <switches :config="busconfig" :options="BUS_OPTS"></switches>
         
         <memory-address-register></memory-address-register>
@@ -22,6 +20,8 @@
         <button @click="loadProgram">LOAD PROGRAM</button>
         
         <program-counter></program-counter>
+        
+        <control></control>
     </div>
 </template>
 <script>
@@ -34,6 +34,7 @@ import MemoryAddressRegister from './memory_address_register_module'
 import Memory from './memory_module'
 import ProgramCounter from './program_counter'
 import ALU from './alu'
+import Control from './control'
 
 import { offsetToAddr } from '../util'
 
@@ -52,10 +53,16 @@ const BUS_OPTS = {
 }
 
 const PROGRAM = [
-    0b00110011,
-    0b11110011,
-    0b00111100,
-    0b00110101,
+    0b00001000, // LDA 8
+    0b00011001, // ADD 9
+    0b00100000, // HLT
+    0b00000000,
+    0b00000000,
+    0b00000000,
+    0b00000000,
+    0b00000000,
+    0b00101010, // value at 8
+    0b00000011, // value at 9
 ].map(x => offsetToAddr(x, 8))
 
 export default {
@@ -73,6 +80,7 @@ export default {
         Memory,
         ProgramCounter,
         alu: ALU,
+        Control,
     },
     
     computed: {
@@ -81,24 +89,6 @@ export default {
         ...mapGetters('registerA', {aout: 'out'}),
         ...mapGetters('registerB', {bout: 'out'}),
         ...mapGetters('registerI', {iout: 'out'}),
-        
-        config: () => [
-            { key: 'ai', label: 'AI' },
-            { key: 'ao', label: 'AO' },
-            { key: 'bi', label: 'BI' },
-            { key: 'bo', label: 'BO' },
-            { key: 'ii', label: 'II' },
-            { key: 'io', label: 'IO' },
-            { key: 'mi', label: 'MI' },
-            { key: 'ro', label: 'RO' },
-            { key: 'ri', label: 'RI' },
-            { key: 'ce', label: 'CE' },
-            { key: 'co', label: 'CO' },
-            { key: 'j', label: 'J' },
-            { key: 'fi', label: 'FI' },
-            { key: 'eo', label: 'EO' },
-            { key: 'su', label: 'SU' },
-        ],
         
         busconfig: () => [
             { key: 7, label: 'Bus7' },
