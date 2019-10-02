@@ -22,6 +22,7 @@
         <program-counter></program-counter>
         
         <control></control>
+        <output-module></output-module>
     </div>
 </template>
 <script>
@@ -35,6 +36,7 @@ import Memory from './memory_module'
 import ProgramCounter from './program_counter'
 import ALU from './alu'
 import Control from './control'
+import OutputModule from './output'
 
 import { offsetToAddr } from '../util'
 
@@ -55,8 +57,8 @@ const BUS_OPTS = {
 const PROGRAM = [
     0b00001000, // LDA 8
     0b00011001, // ADD 9
-    0b00100000, // HLT
-    0b00000000,
+    0b00100000, // OUT
+    0b00110000, // HLT
     0b00000000,
     0b00000000,
     0b00000000,
@@ -81,6 +83,7 @@ export default {
         ProgramCounter,
         alu: ALU,
         Control,
+        OutputModule,
     },
     
     computed: {

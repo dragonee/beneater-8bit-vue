@@ -6,6 +6,7 @@ import MemoryModule from './modules/memory'
 import ProgramCounterModule from './modules/program_counter'
 import ALUModule from './modules/alu'
 import ControlModule from './modules/control'
+import OutputModule from './modules/output'
 
 import { offsetToAddr, promisifyTimeout } from './util'
 
@@ -97,6 +98,12 @@ export default {
             zf: 'alu/zf', 
             ir: 'registerI/out',
             CLK: 'CLK'
+        }),
+        
+        output: OutputModule({
+            namespace: 'output',
+            oi: 'oi',
+            CLK: 'CLK'
         })
     },
     
@@ -122,6 +129,8 @@ export default {
         fi: (s, g) => g['control/out'].fi, // low act
         eo: (s, g) => g['control/out'].eo, // low act
         su: (s, g) => g['control/out'].su, // high act
+        
+        oi: (s, g) => g['control/out'].oi, // high act
 
         bus: (state, getters) => merge(
             getters['registerA/bus'], 
@@ -197,6 +206,12 @@ export default {
                 HLT
             ]
             
+            const outInstruction = [
+                CO|MI,
+                RO|II|CE,
+                AO|OI
+            ]
+            
             const instructionsToMicrocode = (instructions) => {
                 let microcodeLow = Array(2048).fill(null).map(() => Array(8).fill(false))
                 let microcodeHigh = Array(2048).fill(null).map(() => Array(8).fill(false))
@@ -226,6 +241,7 @@ export default {
             const [microcodeLow, microcodeHigh] = instructionsToMicrocode([
                 ldaInstruction,
                 addInstruction,
+                outInstruction,
                 hltInstuction
             ])
             

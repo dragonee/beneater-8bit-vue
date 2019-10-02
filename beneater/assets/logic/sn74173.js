@@ -53,10 +53,10 @@ export default ({
                 root: true,
                 handler({ state, rootState, rootGetters, commit }, payload) {
                     commit('setState', {
-                        d1: 0,
-                        d2: 0,
-                        d3: 0,
-                        d4: 0,
+                        d1: false,
+                        d2: false,
+                        d3: false,
+                        d4: false,
                     })
                 }
             }
