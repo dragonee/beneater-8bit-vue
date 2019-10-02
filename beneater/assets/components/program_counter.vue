@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="module program-counter">
+        <div class="title">Program Counter</div>
         <led8bit color="green" :reverse="true" :bits="4" :word="out"></led8bit>
     </div>
 </template>

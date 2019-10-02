@@ -1,5 +1,6 @@
 <template>
-    <div>    
+    <div class="module memory-register">
+        <div class="title">Memory Register</div>
         <div>
             <button @click="setManualAddressingMode(prog)">PROG</button> 
             <led :on="prog" color="red"></led>

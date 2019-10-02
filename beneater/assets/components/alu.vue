@@ -1,5 +1,7 @@
 <template>
-    <div>
+    <div class="module alu">
+        <div class="title">ALU</div>
+        
         <led8bit color="red" :reverse="true" :word="sum"></led8bit>
         
         <div>

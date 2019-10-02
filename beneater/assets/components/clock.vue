@@ -1,5 +1,6 @@
 <template>
-    <div class="clock">
+    <div class="module clock">
+        <div class="title">Clock</div>
         <div>
             <input v-model="miliseconds"> 
             <label><input type="checkbox" v-model="enabled"> Enable astable generator</label>

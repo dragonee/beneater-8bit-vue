@@ -1,23 +1,26 @@
 <template>
     <div class="board">    
-        <led :on="output" color="red"></led>
+        <div class="module">
+            <div class="title">Hello world</div>
+            
+            <led :on="output" color="red"></led> Clock<br>
+            
+            <led8bit :word="bus" color="blue" :reverse="true"></led8bit> BUS<br>
+            <led8bit :word="aout" color="red" :reverse="true"></led8bit> A<br>
+            <led8bit :word="bout" color="red" :reverse="true"></led8bit> B<br>
+            <led8bit :word="iout" :color="['blue', 'blue', 'blue', 'blue', 'yellow', 'yellow', 'yellow', 'yellow']" :reverse="true"></led8bit> I<br>
+            
+            <switches :config="busconfig" :options="BUS_OPTS"></switches>
+            
+            <button @click="loadProgram">LOAD PROGRAM</button>
+        </div>
 
         <clock></clock>
         
-        <led8bit :word="bus" color="blue" :reverse="true"></led8bit> BUS<br>
-        <led8bit :word="aout" color="red" :reverse="true"></led8bit> A<br>
-        <led8bit :word="bout" color="red" :reverse="true"></led8bit> B<br>
-        
         <alu></alu>
-        
-        <led8bit :word="iout" :color="['blue', 'blue', 'blue', 'blue', 'yellow', 'yellow', 'yellow', 'yellow']" :reverse="true"></led8bit> I<br>
-
-        <switches :config="busconfig" :options="BUS_OPTS"></switches>
-        
+                
         <memory-address-register></memory-address-register>
         <memory></memory>
-        
-        <button @click="loadProgram">LOAD PROGRAM</button>
         
         <program-counter></program-counter>
         

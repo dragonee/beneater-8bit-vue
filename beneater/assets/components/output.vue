@@ -1,6 +1,10 @@
 <template>
-    <div>
-        {{ number }}
+    <div class="module output">
+        <div class="title">Output</div>
+        
+        <div class="number">
+            {{ number }}
+        </div>
     </div>
 </template>
 <script>

@@ -1,6 +1,6 @@
 <template>
-    <div>    
-        
+    <div class="module memory">
+        <div class="title">Memory</div>        
         <div>
             <led8bit color="red" :reverse="true" :word="memory"></led8bit>
         </div>

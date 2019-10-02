@@ -1,6 +1,6 @@
 <template>
-    <div>    
-        
+    <div class="module control">
+        <div class="title">Control Logic</div>        
         <div>
             <led8bit color="blue" :reverse="true" :word="outPositive" :labels="outPositiveLabels" :bits="16"></led8bit>
         </div>

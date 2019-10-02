@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap');
 $led-colors: (
     "red": #e45151,
     "green": #2ce80a,
@@ -7,6 +8,11 @@ $led-colors: (
 
 body {
     background: #f1f1f1;
+    
+    box-sizing: border-box;
+    
+    font-family: 'Fira Sans Condensed', sans-serif;
+
 }
 
 .led {
@@ -46,4 +52,42 @@ body {
         background-color: rgba(255, 255, 255, 0.4);
     }
 
+}
+
+
+.module {
+    padding: 1rem 3rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+    
+    position: relative;
+    
+    border-radius: 4px;
+    background: #f6f6f6;
+    
+    margin: 20px 10px;
+    
+    .title {
+        position: absolute;
+        
+        bottom: -0.5rem;
+        
+        background: #f6f6f6;
+        text-align: center;
+        
+        box-shadow: 0 2px 6px #f6f6f6;
+        padding: 0 6px;
+        border-radius: 4px;
+    }
+    
+    flex: 1 0 21%;
+}
+
+.board {
+    display: flex;
+    
+    flex-wrap: wrap;
+}
+
+.output .number {
+    font-size: 2em;
 }
