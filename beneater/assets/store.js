@@ -24,7 +24,6 @@ const merge = (...args) => {
 
 export default {
     state: {
-        bus:  [false, false, false, false, false, false, false, false]
     },
     
     modules: {
@@ -137,23 +136,11 @@ export default {
             getters['registerI/bus'], 
             getters['memory/bus'],
             getters['programCounter/bus'],
-            getters['alu/bus'],
-            state.bus
+            getters['alu/bus']
         )
     },
     
     mutations: {
-        toggle(state, payload) {
-            state[payload.key] = !state[payload.key]
-        },
-        
-        setBus(state, payload) {
-            let newArr = [...state.bus]
-            
-            newArr[payload.key] = !newArr[payload.key]
-            
-            state.bus = newArr
-        }
     },
     
     actions: {

@@ -9,9 +9,7 @@
             <led8bit :word="aout" color="red" :reverse="true"></led8bit> A<br>
             <led8bit :word="bout" color="red" :reverse="true"></led8bit> B<br>
             <led8bit :word="iout" :color="['blue', 'blue', 'blue', 'blue', 'yellow', 'yellow', 'yellow', 'yellow']" :reverse="true"></led8bit> I<br>
-            
-            <switches :config="busconfig" :options="BUS_OPTS"></switches>
-            
+                        
             <button @click="loadProgram">LOAD PROGRAM</button>
         </div>
 
@@ -33,7 +31,6 @@ import { mapState, mapGetters } from 'vuex'
 
 import Clock from './clock'
 import LED8Bit from './led8bit'
-import Switches from './switches'
 import MemoryAddressRegister from './memory_address_register_module'
 import Memory from './memory_module'
 import ProgramCounter from './program_counter'
@@ -42,20 +39,6 @@ import Control from './control'
 import OutputModule from './output'
 
 import { offsetToAddr } from '../util'
-
-const SWITCHES_OPTS = {
-    mutation: 'toggle',
-    getter($store) {
-        return (item) => $store.state[item.key]
-    }
-}
-
-const BUS_OPTS = {
-    mutation: 'setBus',
-    getter($store) {
-        return (item) => $store.state.bus[item.key]
-    }
-}
 
 const PROGRAM = [
     0b00011000, // LDA 8
@@ -72,15 +55,12 @@ const PROGRAM = [
 
 export default {
     data: () => ({
-        SWITCHES_OPTS,
-        BUS_OPTS,
         PROGRAM
     }),
     
     components: {
         Clock,
         led8bit: LED8Bit,
-        Switches,
         MemoryAddressRegister,
         Memory,
         ProgramCounter,
@@ -95,17 +75,6 @@ export default {
         ...mapGetters('registerA', {aout: 'out'}),
         ...mapGetters('registerB', {bout: 'out'}),
         ...mapGetters('registerI', {iout: 'out'}),
-        
-        busconfig: () => [
-            { key: 7, label: 'Bus7' },
-            { key: 6, label: 'Bus6' },
-            { key: 5, label: 'Bus5' },
-            { key: 4, label: 'Bus4' },
-            { key: 3, label: 'Bus3' },
-            { key: 2, label: 'Bus2' },
-            { key: 1, label: 'Bus1' },
-            { key: 0, label: 'Bus0' },
-        ]
     },
     
     methods: {
