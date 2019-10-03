@@ -184,6 +184,10 @@ export default {
             const EO = 128, SU = 64, BI = 32, OI = 16, CE = 8, CO = 4, J = 2, FI = 1 
             const HLT = 32768, MI = 16384, RI = 8192, RO = 4096, IO = 2048, II = 1024, AI = 512, AO = 256
             
+            const nopInstruction = [
+                CO|MI,
+                RO|II|CE,
+            ]
             
             const ldaInstruction = [
                 CO|MI,
@@ -239,6 +243,7 @@ export default {
             }
             
             const [microcodeLow, microcodeHigh] = instructionsToMicrocode([
+                nopInstruction,
                 ldaInstruction,
                 addInstruction,
                 outInstruction,
