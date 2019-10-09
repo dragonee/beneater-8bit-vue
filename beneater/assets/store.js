@@ -239,6 +239,38 @@ export default {
             
             commit('control/memoryLow/setContents', microcodeLow)
             commit('control/memoryHigh/setContents', microcodeHigh)
+        },
+        
+        programOutputCode({ commit, getters }, payload) {
+            const digits = [
+                [true, true, true, true, true, true, false, false],
+                [false, true, true, false, false, false, false, false],
+                [true, true, false, true, true, false, true, false],
+                [true, true, true, true, false, false, true, false],
+                [false, true, true, false, false, true, true, false],
+                [true, false, true, true, false, true, true, false],
+                [true, false, true, true, true, true, true, false],
+                [true, true, true, false, false, false, false, false],
+                [true, true, true, true, true, true, true, false],
+                [true, true, true, true, false, true, true, false],
+            ]
+            
+            let outputCode = Array(2048).fill(null).map(() => Array(8).fill(false))
+            
+            for (let i = 0; i < 255; i++) {
+                let j = i
+                
+                for (let digit = 0; digit < 3; digit++) {
+                    outputCode[digit * 256 + i] = digits[j % 10]
+                    j = Math.floor(j / 10)
+                    
+                    if (j == 0) {
+                        break;
+                    }
+                }
+            }
+            
+            commit('output/memory/setContents', outputCode)
         }
     }
 }

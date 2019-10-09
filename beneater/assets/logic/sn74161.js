@@ -62,6 +62,10 @@ export default ({
             [pin2]: {
                 root: true,
                 handler({ state, rootState, rootGetters, commit }, payload) {
+                    if(!payload.rising) {
+                        return
+                    }
+                    
                     if( !pin9(rootState, rootGetters) ) {
                         commit('setState', [
                             pin3(rootState, rootGetters),

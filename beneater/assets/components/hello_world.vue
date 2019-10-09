@@ -45,12 +45,14 @@ const PROGRAM = [
     0b00101001, // ADD 9
     0b00110000, // OUT
     0b01000000, // HLT
+    
     0b00000000,
     0b00000000,
     0b00000000,
     0b00000000,
-    0b00101010, // value at 8
-    0b00000011, // value at 9
+    
+    0b00001010, // value at 8
+    0b01000000, // value at 9
 ].map(x => offsetToAddr(x, 8))
 
 export default {

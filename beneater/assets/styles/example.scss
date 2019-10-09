@@ -91,3 +91,30 @@ body {
 .output .number {
     font-size: 2em;
 }
+
+svg.display {
+    fill: #320000;
+    
+    
+    @each $class, $color in $led-colors {
+        &.#{$class} .on {
+            fill: $color;
+        }
+        
+        &.#{$class} .off {
+            fill: desaturate(darken($color, 40%), 20%);
+        }
+    }
+    
+    height: 100%;
+}
+
+.display-box {
+    background-color: #290000;
+    border-radius: 4px;
+    
+    height: 4rem;
+    padding: 6px;
+    
+    display: inline-block;
+}

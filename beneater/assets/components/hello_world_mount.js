@@ -12,9 +12,7 @@ Vue.component('led', LED)
 const vuex_store = new Vuex.Store(store)
 
 vuex_store.watch((s, g) => g['clock/output'], (val) => {
-    if (val) {
-        vuex_store.dispatch('CLK')
-    }
+    vuex_store.dispatch('CLK', { rising: val })
 })
 
 vuex_store.watch((s, g) => g['memory/multiplexerManual/pin12'], (val) => {
@@ -35,12 +33,25 @@ vuex_store.watch((s, g) => g['control/resetNand/pin11'], (val) => {
     }
 })
 
+vuex_store.watch((s, g) => g['output/andGate/pin3'], (val) => {
+    vuex_store.dispatch('CLKOI', { rising: val })
+})
+
+vuex_store.watch((s, g) => g['output/counter/pin14'], (val) => {
+    vuex_store.dispatch('CLK2', { rising: val })
+})
+
+
 new Vue({
    render: h => h(HelloWorldComponent),
    store: vuex_store,
    
    mounted() {
        this.$store.dispatch('programMicrocode')
+       this.$store.dispatch('programOutputCode')
+
        this.$store.dispatch('clock/start')
+       this.$store.dispatch('output/start')
+
    }
 }).$mount('#app')
