@@ -8,7 +8,7 @@
             <led8bit :word="bus" color="blue" :reverse="true"></led8bit> BUS<br>
             <led8bit :word="aout" color="red" :reverse="true"></led8bit> A<br>
             <led8bit :word="bout" color="red" :reverse="true"></led8bit> B<br>
-            <led8bit :word="iout" :color="['blue', 'blue', 'blue', 'blue', 'yellow', 'yellow', 'yellow', 'yellow']" :reverse="true"></led8bit> I<br>
+            <led8bit :word="iout" :color="['blue', 'blue', 'blue', 'blue', 'yellow', 'yellow', 'yellow', 'yellow']" :reverse="true"></led8bit> I <code class="disasm">{{ disasm }}</code><br>
                         
             <button @click="loadProgram">LOAD PROGRAM</button>
         </div>
@@ -38,7 +38,7 @@ import ALU from './alu'
 import Control from './control'
 import OutputModule from './output'
 
-import { offsetToAddr } from '../util'
+import { offsetToAddr, addrToOffset } from '../util'
 
 const PROGRAM = [
     0b00011000, // LDA 8
@@ -54,6 +54,29 @@ const PROGRAM = [
     0b00001010, // value at 8
     0b01000000, // value at 9
 ].map(x => offsetToAddr(x, 8))
+
+const instructions = [
+    'NOP',
+    'LDA',
+    'ADD',
+    'OUT',
+    'HLT',
+    '???',
+    '???',
+    '???',
+    '???',
+    '???',
+    '???',
+    '???',
+    '???',
+    '???',
+    '???',
+    '???',
+]
+
+const instructionHasArgument = [
+    'LDA', 'ADD'
+]
 
 export default {
     data: () => ({
@@ -77,6 +100,23 @@ export default {
         ...mapGetters('registerA', {aout: 'out'}),
         ...mapGetters('registerB', {bout: 'out'}),
         ...mapGetters('registerI', {iout: 'out'}),
+        
+        // XXX see instructionsToMicrocode - actually a asm/disasm module should be moved someplace else.
+        disasm() {
+            const registerIContents = addrToOffset(this.iout)
+            
+            const registerIInstruction = registerIContents >> 4
+            const registerIValue = registerIContents & 0b1111
+            
+            const instructionName = instructions[registerIInstruction]
+            
+            if (instructionHasArgument.includes(instructionName)) {
+                return `${instructionName} ${registerIValue}`
+            }
+            
+            return instructionName
+            
+        },
     },
     
     methods: {
