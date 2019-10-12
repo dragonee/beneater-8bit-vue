@@ -21,6 +21,15 @@
             <led :on="manualButton"></led> Manual button
         </div>
         
+        <div>
+            <button @click="toggleCountdown">
+                X
+            </button>
+            <led :on="countdownMode"></led> Countdown mode
+            
+            <input v-model="countdownCounter"> 
+        </div>
+        
         <led color="blue" :on="output"></led> Output
     </div>
 </template>
@@ -42,6 +51,16 @@ export default {
             }
         },
         
+        countdownCounter: {
+            get() {
+                return this.$store.state.clock.countdownCounter
+            },
+            
+            set(value) {
+                this.$store.commit('clock/setCountdownCounter', value)
+            }
+        },
+        
         enabled: {
             get() {
                 return this.$store.state.clock.vcc
@@ -55,6 +74,7 @@ export default {
         ...mapState([
             'manualMode',
             'manualButton',
+            'countdownMode',
         ]),
         
         ...mapGetters([
@@ -66,10 +86,15 @@ export default {
         ...mapMutations([
             'setManualButton',
             'selectManualMode',
+            'setCountdownMode',
         ]),
         
         toggleManualMode() {
             this.selectManualMode(!this.manualMode)
+        },
+        
+        toggleCountdown() {
+            this.setCountdownMode(!this.countdownMode)
         },
         
         pressManualButton() {

@@ -138,7 +138,7 @@ export default ({ namespace, eo, su, a, b, fi, CLK='CLK', CLR='CLR' }) => ({
             pin2: () => false,
             
             pin14: (s, g) => g[`${namespace}/adderHigh/pin9`],
-            pin13: (s, g) => g[`${namespace}/flagsAnd/pin8`],
+            pin13: (s, g) => g[`${namespace}/flagsAnd/pin8`]           
         }),
         
         flagsNor: sn7402({

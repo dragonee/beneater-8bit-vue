@@ -50,6 +50,11 @@ new Vue({
        this.$store.dispatch('programMicrocode')
        this.$store.dispatch('programOutputCode')
 
+       if (location.hash === '#debug') {
+           this.$store.commit('output/setVcc', false)
+           this.$store.commit('clock/setVoltage', false)
+       }
+       
        this.$store.dispatch('clock/start')
        this.$store.dispatch('output/start')
 

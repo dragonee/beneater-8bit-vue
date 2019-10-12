@@ -41,18 +41,18 @@ import OutputModule from './output'
 import { offsetToAddr, addrToOffset } from '../util'
 
 const PROGRAM = [
-    0b00011000, // LDA 8
-    0b00101001, // ADD 9
+    0b01111001, // SUB 9
+    0b10100100, // JZ 4
     0b00110000, // OUT
-    0b01000000, // HLT
+    0b01100000, // JMP 0
     
-    0b00000000,
-    0b00000000,
-    0b00000000,
-    0b00000000,
+    0b00101001, // ADD 9
+    0b10010000, // JC 0
+    0b00110000, // OUT
+    0b01100100, // JMP 4
     
     0b00001010, // value at 8
-    0b01000000, // value at 9
+    0b00100000, // value at 9
 ].map(x => offsetToAddr(x, 8))
 
 const instructions = [
@@ -60,14 +60,17 @@ const instructions = [
     'LDA',
     'ADD',
     'OUT',
+    
     'HLT',
+    'STA',
+    'JMP',
+    'SUB',
+    
+    'LDI',
+    'JC',
+    'JZ',
     '???',
-    '???',
-    '???',
-    '???',
-    '???',
-    '???',
-    '???',
+    
     '???',
     '???',
     '???',
@@ -75,7 +78,7 @@ const instructions = [
 ]
 
 const instructionHasArgument = [
-    'LDA', 'ADD'
+    'LDA', 'ADD', 'STA', 'JMP', 'SUB', 'LDI', 'JC', 'JZ'
 ]
 
 export default {

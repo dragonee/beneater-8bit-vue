@@ -11,8 +11,10 @@ export default ({ namespace, CLKOI='CLKOI', CLR='CLR', O_OUTPUT_WE='O_OUTPUT_WE'
     namespaced: true,
     
     state: {
-        miliseconds: 250,
+        miliseconds: 100,
         astable: false,
+        
+        vcc: true,
     },
     
     getters: {
@@ -36,6 +38,10 @@ export default ({ namespace, CLKOI='CLKOI', CLR='CLR', O_OUTPUT_WE='O_OUTPUT_WE'
     mutations: {
         impulse(state, payload) {
             state.astable = payload
+        },
+        
+        setVcc(state, payload) {
+            state.vcc = payload
         }
     },
     
@@ -105,12 +111,15 @@ export default ({ namespace, CLKOI='CLKOI', CLR='CLR', O_OUTPUT_WE='O_OUTPUT_WE'
             while(true) {
                 await promisifyTimeout(state.miliseconds)
             
+                if (!state.vcc) {
+                    continue;
+                }
+                    
                 dispatch('CLK1', { rising: true }, { root: true })
                 
                 await promisifyTimeout(state.miliseconds)
                 
                 dispatch('CLK1', { rising: false }, { root: true })
-
             }
         },
         

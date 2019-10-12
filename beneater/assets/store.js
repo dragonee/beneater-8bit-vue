@@ -28,6 +28,21 @@ export default {
     
     modules: {
         clock: ClockModule,
+        
+        // order of modules regulates the timing
+        // here ALU needs to be considered before the A Register
+        // in order to execute FI and AI simultaneously
+        alu: ALUModule({
+            namespace: 'alu',
+            fi: 'fi',
+            su: 'su',
+            eo: 'eo',
+            a: 'registerA/out',
+            b: 'registerB/out',
+            CLK: 'CLK',
+            CLR: 'CLR'
+        }),
+        
         registerA: RegisterModule({
             namespace: 'registerA',
             ri: 'ai',
@@ -76,17 +91,6 @@ export default {
             ce: 'ce',
             co: 'co',
             j: 'j',
-            CLK: 'CLK',
-            CLR: 'CLR'
-        }),
-        
-        alu: ALUModule({
-            namespace: 'alu',
-            fi: 'fi',
-            su: 'su',
-            eo: 'eo',
-            a: 'registerA/out',
-            b: 'registerB/out',
             CLK: 'CLK',
             CLR: 'CLR'
         }),
@@ -188,7 +192,7 @@ export default {
                 RO|II|CE,
                 IO|MI,
                 RO|BI,
-                EO|AI
+                EO|AI|FI
             ]
             
             const hltInstuction = [
@@ -203,6 +207,45 @@ export default {
                 AO|OI
             ]
             
+            const staInstruction = [
+                CO|MI,
+                RO|II|CE,
+                IO|MI,
+                AO|RI
+            ]
+            
+            const jmpInstruction = [
+                CO|MI,
+                RO|II|CE,
+                IO|J,
+            ]
+            
+            const subInstruction = [
+                CO|MI,
+                RO|II|CE,
+                IO|MI,
+                RO|BI,
+                EO|SU|AI|FI,
+            ]
+            
+            const ldiInstruction = [
+                CO|MI,
+                RO|II|CE,
+                IO|AI
+            ]
+            
+            const jcInstruction = [
+                CO|MI,
+                RO|II|CE,
+                { cf: IO|J, both: IO|J }
+            ]
+            
+            const jzInstruction = [
+                CO|MI,
+                RO|II|CE,
+                { zf: IO|J, both: IO|J }
+            ]
+            
             const instructionsToMicrocode = (instructions) => {
                 let microcodeLow = Array(2048).fill(null).map(() => Array(8).fill(false))
                 let microcodeHigh = Array(2048).fill(null).map(() => Array(8).fill(false))
@@ -210,14 +253,31 @@ export default {
                 const MICROCODE_LOW = 128
                 const MICROCODE_HIGH = 0
                 
+                const cfzfMap = [
+                    'default',
+                    'cf',
+                    'zf',
+                    'both'
+                ]
+                
                 for (let i = 0; i < instructions.length; i++) {
                     let instruction = instructions[i]
                     
                     for (let step = 0; step < instruction.length; step++) {
-                        let microinstruction = instruction[step]
-                        
-                        // XXX does not handle cf/zf properly
                         for(let cfzf = 0; cfzf < 4; cfzf++) {
+                            let microinstruction = instruction[step]
+
+                            // check object definition, e.g. {cf: RO|AI}
+                            if (!Number.isInteger(microinstruction)) {
+                                microinstruction = microinstruction[cfzfMap[cfzf]]
+                                
+                                // allow empty object definitions
+                                // and convert them to noop
+                                if (!Number.isInteger(microinstruction)) {
+                                    microinstruction = 0
+                                }
+                            }
+                            
                             let addr = step + (i << 3) + (cfzf << 8)
                             
                             microcodeLow[addr + MICROCODE_LOW] = offsetToAddr(microinstruction & 255, 8)
@@ -225,7 +285,7 @@ export default {
                         }
                     }
                 }
-                
+                                                
                 return [microcodeLow, microcodeHigh]
             }
             
@@ -234,7 +294,13 @@ export default {
                 ldaInstruction,
                 addInstruction,
                 outInstruction,
-                hltInstuction
+                hltInstuction,
+                staInstruction,
+                jmpInstruction,
+                subInstruction,
+                ldiInstruction,
+                jcInstruction,
+                jzInstruction,
             ])
             
             commit('control/memoryLow/setContents', microcodeLow)

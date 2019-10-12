@@ -17,6 +17,9 @@ export default {
         manualMode: false,
         
         vcc: true,
+        
+        countdownMode: false,
+        countdownCounter: 0,
     },
     
     modules: {
@@ -52,6 +55,16 @@ export default {
     mutations: {
         impulse(state, payload) {
             state.astable = payload
+            
+            if (state.countdownMode && state.countdownCounter > 0 && state.astable) {
+                state.countdownCounter -= 1
+            }
+            
+            if (state.countdownMode && state.countdownCounter === 0) {
+                state.vcc = false
+                state.manualMode = true
+                state.countdownMode = false
+            }
         },
         
         selectManualMode(state, payload) {
@@ -68,6 +81,14 @@ export default {
         
         setVoltage(state, payload) {
             state.vcc = !!payload
+        },
+        
+        setCountdownMode(state, payload) {
+            state.countdownMode = payload
+        },
+        
+        setCountdownCounter(state, payload) {
+            state.countdownCounter = payload
         }
     },
     
@@ -76,9 +97,16 @@ export default {
             while(true) {
                 await promisifyTimeout(state.miliseconds)
             
-                if (state.vcc) {
-                    commit('impulse', !state.astable)
+                if (!state.vcc) {
+                    continue;
                 }
+                
+                if (state.countdownMode && state.countdownCounter === 0) {
+                    continue;
+                }
+                
+                commit('impulse', !state.astable)
+
             }
         }
     }

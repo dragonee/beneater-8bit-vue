@@ -1,6 +1,6 @@
 <template>
     <div class="module output">
-        <div class="title">Output</div>
+        <div class="title">Output <input type="checkbox" v-model="vcc"></div>
                 
         <div class="display-box">
             <seven-segment-display 
@@ -28,8 +28,6 @@
 </template>
 
 <script>
-// A haphazard output module
-
 import { createNamespacedHelpers } from 'vuex'
 
 import SevenSegmentDisplay from './seven_segment_display'
@@ -48,7 +46,17 @@ export default {
             'cathodeB',
             'cathodeC',
             'cathodeD',
-        ])
+        ]),
+        
+        vcc: {
+            get() {
+                return this.$store.state.output.vcc
+            },
+            
+            set(value) {
+                this.$store.commit('output/setVcc', value)
+            }
+        }
     }
 }
 </script>
