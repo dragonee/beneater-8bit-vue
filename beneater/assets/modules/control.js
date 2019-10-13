@@ -1,19 +1,25 @@
-import sn74161 from '../logic/sn74161'
-import sn74138 from '../logic/sn74138'
+import sn74161 from '../logic/sn74161';
+import sn74138 from '../logic/sn74138';
 
-import sn7400 from '../logic/sn7400'
-import sn7404 from '../logic/sn7404'
-import at28c16 from '../logic/at28c16'
+import sn7400 from '../logic/sn7400';
+import sn7404 from '../logic/sn7404';
+import at28c16 from '../logic/at28c16';
 
-import { promisifyTimeout } from '../util'
+import { promisifyTimeout } from '../util';
 
-export default ({ namespace, cf, zf, ir, CLK='CLK' }) => ({
+export default ({
+    namespace,
+    cf,
+    zf,
+    ir,
+    CLK = 'CLK',
+}) => ({
     namespaced: true,
-    
+
     state: {
         resetButton: false,
     },
-    
+
     getters: {
         out(state, g) {
             return {
@@ -33,9 +39,9 @@ export default ({ namespace, cf, zf, ir, CLK='CLK' }) => ({
                 co: g['inverterLow/pin12'],
                 j: g['inverterLow/pin10'],
                 fi: g['inverterLow/pin6'],
-            }
+            };
         },
-        
+
         outPositive(state, g) {
             return [
                 g['memoryLow/pin9'],
@@ -54,57 +60,57 @@ export default ({ namespace, cf, zf, ir, CLK='CLK' }) => ({
                 g['memoryHigh/pin15'],
                 g['memoryHigh/pin16'],
                 g['memoryHigh/pin17'],
-            ]
+            ];
         },
-        
-        outPositiveLabels(state, g) {
+
+        outPositiveLabels() {
             return [
                 'FI', 'J', 'CO', 'CE', 'OI', 'BI', 'SU', 'EO',
-                'AO', 'AI', 'II', 'IO', 'RO', 'RI', 'MI', 'HLT'
-            ]
+                'AO', 'AI', 'II', 'IO', 'RO', 'RI', 'MI', 'HLT',
+            ];
         },
-        
+
         binaryMicroinstruction(state, g) {
             return [
                 g['microinstructionCounter/pin14'],
                 g['microinstructionCounter/pin13'],
-                g['microinstructionCounter/pin12']
-            ]
+                g['microinstructionCounter/pin12'],
+            ];
         },
-        
+
         decodedMicroinstruction(state, g) {
             return [
                 g['microinstructionDecoder/pin15'],
                 g['microinstructionDecoder/pin14'],
                 g['microinstructionDecoder/pin13'],
                 g['microinstructionDecoder/pin12'],
-                g['microinstructionDecoder/pin11']
-            ]
+                g['microinstructionDecoder/pin11'],
+            ];
         },
-        
+
         clr(state, getters) {
-            return getters['resetNand/pin11']
+            return getters['resetNand/pin11'];
         },
-        
+
         clr〇(state, getters) {
-            return getters['resetNand/pin8']
-        }
-    }, 
-    
+            return getters['resetNand/pin8'];
+        },
+    },
+
     mutations: {
         setResetButton(state, payload) {
-            state.resetButton = payload
-        }
+            state.resetButton = payload;
+        },
     },
-    
+
     actions: {
-        async pressResetButton({ state, commit, dispatch }) {
-            commit('setResetButton', true)
-            
-            await promisifyTimeout(100)
-            
-            commit('setResetButton', false)
-        }
+        async pressResetButton({ commit }) {
+            commit('setResetButton', true);
+
+            await promisifyTimeout(100);
+
+            commit('setResetButton', false);
+        },
     },
 
     modules: {
@@ -112,25 +118,25 @@ export default ({ namespace, cf, zf, ir, CLK='CLK' }) => ({
             pin1: (s, g) => g[`${namespace}/microinstructionCounter/pin14`],
             pin2: (s, g) => g[`${namespace}/microinstructionCounter/pin13`],
             pin3: (s, g) => g[`${namespace}/microinstructionCounter/pin12`],
-            
+
             pin6: () => true,
             pin5: () => false,
             pin4: () => false,
-        }),    
-        
-        microinstructionCounter: sn74161({
-            pin1: 'C_MICROINSTRUCTION_CLR',
-            pin2: 'CLK',
-            
-            pin7: () => true,
-            pin9: () => true,
-            pin10: () => true
         }),
 
-        //ao, ai, ii, io, ro, ri, mi, hlt
+        microinstructionCounter: sn74161({
+            pin1: 'C_MICROINSTRUCTION_CLR',
+            pin2: CLK,
+
+            pin7: () => true,
+            pin9: () => true,
+            pin10: () => true,
+        }),
+
+        // ao, ai, ii, io, ro, ri, mi, hlt
         memoryHigh: at28c16({
             pin21: 'C_MICROINSTRUCTION_WE',
-            
+
             pin8: (s, g) => g[`${namespace}/microinstructionCounter/pin14`],
             pin7: (s, g) => g[`${namespace}/microinstructionCounter/pin13`],
             pin6: (s, g) => g[`${namespace}/microinstructionCounter/pin12`],
@@ -142,15 +148,16 @@ export default ({ namespace, cf, zf, ir, CLK='CLK' }) => ({
             pin23: (s, g) => g[cf],
             pin22: (s, g) => g[zf],
             pin19: () => false,
-        
+
             pin20: () => false,
             pin18: () => false,
         }),
-        
+
         // fi, j, co, ce, oi, bi, su, eo
         memoryLow: at28c16({
+            // XXX TODO?
             pin21: 'C_MICROINSTRUCTION_WE',
-            
+
             pin8: (s, g) => g[`${namespace}/microinstructionCounter/pin14`],
             pin7: (s, g) => g[`${namespace}/microinstructionCounter/pin13`],
             pin6: (s, g) => g[`${namespace}/microinstructionCounter/pin12`],
@@ -162,11 +169,11 @@ export default ({ namespace, cf, zf, ir, CLK='CLK' }) => ({
             pin23: (s, g) => g[cf],
             pin22: (s, g) => g[zf],
             pin19: () => false,
-        
+
             pin20: () => false,
             pin18: () => false,
         }),
-        
+
         inverterHigh: sn7404({
             pin1: (s, g) => g[`${namespace}/memoryHigh/pin16`],
             pin3: (s, g) => g[`${namespace}/memoryHigh/pin14`],
@@ -175,7 +182,7 @@ export default ({ namespace, cf, zf, ir, CLK='CLK' }) => ({
             pin11: (s, g) => g[`${namespace}/memoryHigh/pin10`],
             pin13: (s, g) => g[`${namespace}/memoryHigh/pin11`],
         }),
-        
+
         inverterLow: sn7404({
             pin1: (s, g) => g[`${namespace}/memoryLow/pin17`],
             pin3: (s, g) => g[`${namespace}/memoryLow/pin15`],
@@ -183,20 +190,19 @@ export default ({ namespace, cf, zf, ir, CLK='CLK' }) => ({
             pin11: (s, g) => g[`${namespace}/memoryLow/pin10`],
             pin13: (s, g) => g[`${namespace}/memoryLow/pin11`],
         }),
-        
+
         resetNand: sn7400({
             pin1: (s, g) => g[`${namespace}/resetNand/pin6`],
             pin2: (s, g) => g[`${namespace}/resetNand/pin6`],
-            
+
             pin4: (s, g) => g[`${namespace}/resetNand/pin8`],
             pin5: (s, g) => g[`${namespace}/microinstructionDecoder/pin10`],
-            
-            pin9: (s, g) => s[namespace].resetButton,
-            pin10: (s, g) => s[namespace].resetButton,
-            
+
+            pin9: (s) => s[namespace].resetButton,
+            pin10: (s) => s[namespace].resetButton,
+
             pin12: (s, g) => g[`${namespace}/resetNand/pin8`],
             pin13: (s, g) => g[`${namespace}/resetNand/pin8`],
         }),
-        
     },
-})
+});

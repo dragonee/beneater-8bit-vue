@@ -1,29 +1,28 @@
 <template>
     <div>
-        <span v-for="item in config">
-            
+        <span v-for="item in config" :key="item.key">
+
             <button  @click="toggle(item)">{{ item.label }}</button>
             <led v-if="!options.withoutLED" :on="state(item)" :color="item.color || 'red'"></led>
         </span>
     </div>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex'
 
 export default {
     computed: {
         state() {
-            return this.options.getter(this.$store)
-        }
+            return this.options.getter(this.$store);
+        },
     },
     props: {
         config: Array,
-        options: Object
+        options: Object,
     },
     methods: {
         toggle(item) {
-            this.$store.commit(this.options.mutation, item)
-        }
-    }
-}
+            this.$store.commit(this.options.mutation, item);
+        },
+    },
+};
 </script>

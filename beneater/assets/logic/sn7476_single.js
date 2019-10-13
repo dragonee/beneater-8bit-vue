@@ -1,84 +1,88 @@
 const nextState = (j, k, current) => {
-    if(typeof(current) === 'undefined') {
-        current = Math.random() >= 0.5
+    let currentState = current;
+    if (typeof (current) === 'undefined') {
+        currentState = Math.random() >= 0.5;
     }
-    
-    if(j && !k) {
-        return true
+
+    if (j && !k) {
+        return true;
     } else if (!j && k) {
-        return false
+        return false;
     } else if (j) {
-        return !current
+        return !currentState;
     }
-    
-    return current                       
-}
+
+    return currentState;
+};
 
 
-export default ({ 
-    CLK = 'CLK', // 1CLK
-    
+export default ({
+    CLK = 'CLK',
+
     PRE = 'PRE',
     CLR = 'CLR',
-    
-    j = () => undefined, // 1J
-    k = () => undefined, // 1K
-    
-}) => {
-    return {
-        namespaced: true,
-        
-        state: () => ({
-            master: false,
-            slave: false,
-        }),
-        
-        mutations: {
-            setMaster(state, payload) {    
-                state.master = payload
-            },
 
-            setSlave(state, payload) {
-                state.slave = payload
-            }
+    j = () => undefined,
+    k = () => undefined,
+
+}) => ({
+    namespaced: true,
+
+    state: () => ({
+        master: false,
+        slave: false,
+    }),
+
+    mutations: {
+        setMaster(state, payload) {
+            state.master = payload;
         },
-        
-        actions: {
-            [CLK]: {
-                root: true,
-                handler({ state, rootState, rootGetters, commit }, payload) {
-                    if(payload.rising) {
-                        commit('setMaster', nextState(
-                            j(rootState, rootGetters), 
-                            k(rootState, rootGetters), 
-                            state.slave
-                        ))
-                    } else if(state.slave !== state.master) {
-                        commit('setSlave', state.master)
-                    }
+
+        setSlave(state, payload) {
+            state.slave = payload;
+        },
+    },
+
+    actions: {
+        [CLK]: {
+            root: true,
+            /* eslint-disable-next-line object-curly-newline */
+            handler({ state, rootState, rootGetters, commit }, payload) {
+                if (payload.rising) {
+                    commit('setMaster', nextState(
+                        j(rootState, rootGetters),
+                        k(rootState, rootGetters),
+                        state.slave,
+                    ));
+
+                    return;
                 }
-            },
-            
-            [CLR]: {
-                root: true,
-                handler({ state, rootState, rootGetters, commit }, payload) {
-                    commit('setMaster', false)
-                    commit('setSlave', false)
-                }
-            },
-            
-            [PRE]: {
-                root: true,
-                handler({ state, rootState, rootGetters, commit }, payload) {
-                    commit('setMaster', true)
-                    commit('setSlave', true)
+
+                if (state.slave !== state.master) {
+                    commit('setSlave', state.master);
                 }
             },
         },
-        
-        getters: {
-            q: (s, g) => s.slave,
-            q〇: (s, g) => !s.slave,
-        }
-    }
-}
+
+        [CLR]: {
+            root: true,
+            handler({ commit }) {
+                commit('setMaster', false);
+                commit('setSlave', false);
+            },
+        },
+
+        [PRE]: {
+            root: true,
+            handler({ commit }) {
+                commit('setMaster', true);
+                commit('setSlave', true);
+            },
+        },
+    },
+
+    getters: {
+        q: (s) => s.slave,
+        q〇: (s) => !s.slave,
+    },
+});

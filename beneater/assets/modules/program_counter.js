@@ -1,12 +1,19 @@
-import sn74245 from '../logic/sn74245'
-import sn74161 from '../logic/sn74161'
+import sn74245 from '../logic/sn74245';
+import sn74161 from '../logic/sn74161';
 
-export default ({ namespace, co, ce, j, CLK='CLK', CLR='CLR' }) => ({
+export default ({
+    namespace,
+    co,
+    ce,
+    j,
+    CLK = 'CLK',
+    CLR = 'CLR',
+}) => ({
     namespaced: true,
-    
+
     state: {
     },
-    
+
     getters: {
         out(state, getters) {
             return [
@@ -14,9 +21,9 @@ export default ({ namespace, co, ce, j, CLK='CLK', CLR='CLR' }) => ({
                 getters['counter/pin13'],
                 getters['counter/pin12'],
                 getters['counter/pin11'],
-            ]
+            ];
         },
-        
+
         bus(state, getters) {
             return [
                 getters['buffer/pin18'],
@@ -26,21 +33,15 @@ export default ({ namespace, co, ce, j, CLK='CLK', CLR='CLR' }) => ({
                 false,
                 false,
                 false,
-                false
-            ]
-        }
-    }, 
-    
-    mutations: {
-    },
-    
-    actions: {
+                false,
+            ];
+        },
     },
 
     modules: {
         buffer: sn74245({
             pin1: () => true,
-            
+
             pin2: (s, g) => g[`${namespace}/counter/pin14`], // 2^^0
             pin3: (s, g) => g[`${namespace}/counter/pin13`],
             pin4: (s, g) => g[`${namespace}/counter/pin12`],
@@ -48,22 +49,22 @@ export default ({ namespace, co, ce, j, CLK='CLK', CLR='CLR' }) => ({
 
             pin19: (s, g) => g[co],
         }),
-        
+
         counter: sn74161({
-            pin1: 'CLR',
-            pin2: 'CLK',
-            
+            pin1: CLR,
+            pin2: CLK,
+
             pin3: (s, g) => g.bus[0], // A
             pin4: (s, g) => g.bus[1],
             pin5: (s, g) => g.bus[2],
             pin6: (s, g) => g.bus[3], // D
-            
+
             pin7: (s, g) => g[ce],
             pin9: (s, g) => g[j],
             pin10: (s, g) => g[ce],
 
             pin15: () => false,
         }),
-        
+
     },
-})
+});

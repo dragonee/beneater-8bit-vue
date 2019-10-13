@@ -5,25 +5,21 @@
     </div>
 </template>
 <script>
+import { createNamespacedHelpers } from 'vuex';
 
-import LED8Bit from './led8bit'
+import LED8Bit from './led8bit.vue';
 
-import { createNamespacedHelpers } from 'vuex'
-
-const { mapState, mapGetters, mapActions, mapMutations } = createNamespacedHelpers('programCounter')
+const { mapGetters } = createNamespacedHelpers('programCounter');
 
 export default {
     components: {
-        led8bit: LED8Bit
+        led8bit: LED8Bit,
     },
-    
-    computed: {    
+
+    computed: {
         ...mapGetters([
-            'out'
-        ])
+            'out',
+        ]),
     },
-    
-    methods: {
-    }
-}
+};
 </script>

@@ -23,6 +23,11 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.(js|vue)$/,
+                use: 'eslint-loader',
+                enforce: 'pre'
+            },
+            {
                 test: /\.(scss|css)$/,
                 use: [
                     MiniCssExtractPlugin.loader,

@@ -1,10 +1,10 @@
 <template>
     <span>
         <span v-for="(n, index) in bits" :key="n">
-            <led 
+            <led
                 :on="reverse ? word[bits - 1 - index] : word[index]" :color="computedColor(index)"
                 >
-            </led> 
+            </led>
             {{ reverse ? safeLabels[bits - 1 - index] : safeLabels[index] }}
         </span>
     </span>
@@ -14,44 +14,47 @@ export default {
     computed: {
         computedColor() {
             return (index) => {
-                if (typeof(this.color) === 'string') {
-                    return this.color
+                if (typeof (this.color) === 'string') {
+                    return this.color;
                 }
-                
-                return this.color[index]
-            }
+
+                return this.color[index];
+            };
         },
-        
+
         safeLabels() {
             if (this.labels.length) {
-                return this.labels
+                return this.labels;
             }
-            
-            return Array(this.bits).fill('')
-        }
+
+            return Array(this.bits).fill('');
+        },
     },
-    
+
     props: {
         word: Array,
         color: {
             validator(value) {
-                return Array.isArray(value) || ['red', 'green', 'blue', 'yellow'].indexOf(value) !== -1
+                return (
+                    Array.isArray(value)
+                    || ['red', 'green', 'blue', 'yellow'].indexOf(value) !== -1
+                );
             },
-            
-            default: 'red'
+
+            default: 'red',
         },
-        
+
         reverse: Boolean,
-        
+
         bits: {
             type: Number,
-            default: 8
+            default: 8,
         },
-        
+
         labels: {
             type: Array,
-            default: () => []
-        }
-    }
-}
+            default: () => [],
+        },
+    },
+};
 </script>

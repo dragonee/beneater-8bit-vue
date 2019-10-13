@@ -8,20 +8,20 @@ export default {
         ledClasses() {
             return [
                 this.color,
-                this.on ? 'on': 'off'
-            ]
-        }
+                this.on ? 'on' : 'off',
+            ];
+        },
     },
-    
+
     props: {
         on: Boolean,
         color: {
             validator(value) {
-                return ['red', 'green', 'blue', 'yellow'].indexOf(value) !== -1
+                return ['red', 'green', 'blue', 'yellow'].indexOf(value) !== -1;
             },
-            
-            default: 'red'
-        }
-    }
-}
+
+            default: 'red',
+        },
+    },
+};
 </script>

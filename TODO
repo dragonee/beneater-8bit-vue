@@ -1,7 +1,5 @@
 Comment code
 
-Use linter
-
 Make refactors:
  - rename led8bit
  - move assembler/disassembler code to own module
@@ -18,6 +16,8 @@ Features:
 It even can store programs in query param or hash editor.
 
 Remove django bindings?
+
+Update README
 
 Thoughts & challenges:
 - Vue developer tools do fail with two clocks 100ms.
