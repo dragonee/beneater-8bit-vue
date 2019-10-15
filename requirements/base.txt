@@ -1,4 +1,4 @@
-django==2.1.7
+django==2.1.11
 psycopg2-binary==2.7.4
 django-crispy-forms==1.7.2
 django-mail-templated==2.6.5
