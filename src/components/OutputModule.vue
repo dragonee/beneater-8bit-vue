@@ -3,14 +3,14 @@
     <div class="title">Output <input type="checkbox" v-model="vcc" /></div>
 
     <div class="display-box">
-      <seven-segment-display :word="output" :cathode="cathodeD">
-      </seven-segment-display>
-      <seven-segment-display :word="output" :cathode="cathodeC">
-      </seven-segment-display>
-      <seven-segment-display :word="output" :cathode="cathodeB">
-      </seven-segment-display>
-      <seven-segment-display :word="output" :cathode="cathodeA">
-      </seven-segment-display>
+      <SevenSegmentDisplay :word="output" :cathode="cathodeD">
+      </SevenSegmentDisplay>
+      <SevenSegmentDisplay :word="output" :cathode="cathodeC">
+      </SevenSegmentDisplay>
+      <SevenSegmentDisplay :word="output" :cathode="cathodeB">
+      </SevenSegmentDisplay>
+      <SevenSegmentDisplay :word="output" :cathode="cathodeA">
+      </SevenSegmentDisplay>
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-import SevenSegmentDisplay from "./seven_segment_display.vue";
+import SevenSegmentDisplay from "./SevenSegmentDisplay.vue";
 
 const { mapGetters } = createNamespacedHelpers("output");
 

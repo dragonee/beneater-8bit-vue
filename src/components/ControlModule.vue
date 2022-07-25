@@ -2,29 +2,29 @@
   <div class="module control">
     <div class="title">Control Logic</div>
     <div>
-      <led8bit
+      <LedPanel
         color="blue"
         :reverse="true"
         :word="outPositive"
         :labels="outPositiveLabels"
         :bits="16"
-      ></led8bit>
+      ></LedPanel>
     </div>
 
     <div>
-      <led8bit
+      <LedPanel
         color="red"
         :reverse="true"
         :word="binaryMicroinstruction"
         :bits="3"
-      ></led8bit>
+      ></LedPanel>
 
-      <led8bit
+      <LedPanel
         color="green"
         :reverse="false"
         :word="decodedMicroinstruction"
         :bits="5"
-      ></led8bit>
+      ></LedPanel>
     </div>
 
     <div>
@@ -35,13 +35,13 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-import LED8Bit from "./led8bit-line.vue";
+import LedPanel from "./LedPanel.vue";
 
 const { mapGetters, mapActions } = createNamespacedHelpers("control");
 
 export default {
   components: {
-    led8bit: LED8Bit,
+    LedPanel,
   },
 
   computed: {

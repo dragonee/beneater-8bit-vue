@@ -3,12 +3,12 @@
     <div class="module">
       <div class="title">Ben Eater's 8-Bit computer</div>
 
-      <led-diode :on="output" color="red"></led-diode> Clock<br />
+      <LedDiode :on="output" color="red"></LedDiode> Clock<br />
 
-      <led8bit :word="bus" color="blue" :reverse="true"></led8bit> BUS<br />
-      <led8bit :word="aout" color="red" :reverse="true"></led8bit> A<br />
-      <led8bit :word="bout" color="red" :reverse="true"></led8bit> B<br />
-      <led8bit
+      <LedPanel :word="bus" color="blue" :reverse="true"></LedPanel> BUS<br />
+      <LedPanel :word="aout" color="red" :reverse="true"></LedPanel> A<br />
+      <LedPanel :word="bout" color="red" :reverse="true"></LedPanel> B<br />
+      <LedPanel
         :word="iout"
         :color="[
           'blue',
@@ -21,37 +21,33 @@
           'yellow',
         ]"
         :reverse="true"
-      ></led8bit>
-      I <code class="disasm">{{ disasm }}</code
-      ><br />
+      ></LedPanel>
+      I <code class="disasm">{{ disasm }}</code>
+      <br />
 
       <button @click="loadProgram">LOAD PROGRAM</button>
     </div>
 
-    <clock></clock>
-
-    <alu></alu>
-
-    <memory-address-register></memory-address-register>
-    <memory></memory>
-
-    <program-counter></program-counter>
-
-    <control></control>
-    <output-module></output-module>
+    <ClockModule></ClockModule>
+    <AluModule></AluModule>
+    <MemoryAddressRegister></MemoryAddressRegister>
+    <MemoryModule></MemoryModule>
+    <ProgramCounter></ProgramCounter>
+    <ControlModule></ControlModule>
+    <OutputModule></OutputModule>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 
-import Clock from "./clock-module.vue";
-import LED8Bit from "./led8bit-line.vue";
-import MemoryAddressRegister from "./memory_address_register_module.vue";
-import Memory from "./memory_module.vue";
-import ProgramCounter from "./program_counter.vue";
-import ALU from "./alu-module.vue";
-import Control from "./control-module.vue";
-import OutputModule from "./output_module.vue";
+import ClockModule from "./ClockModule.vue";
+import LedPanel from "./LedPanel.vue";
+import MemoryAddressRegister from "./MemoryAddressRegisterModule.vue";
+import MemoryModule from "./MemoryModule.vue";
+import ProgramCounter from "./ProgramCounter.vue";
+import AluModule from "./AluModule.vue";
+import ControlModule from "./ControlModule.vue"
+import OutputModule from "./OutputModule.vue";
 
 import { offsetToAddr, addrToOffset } from "../util";
 
@@ -109,13 +105,13 @@ export default {
   }),
 
   components: {
-    Clock,
-    led8bit: LED8Bit,
+    ClockModule,
+    LedPanel,
     MemoryAddressRegister,
-    Memory,
+    MemoryModule,
     ProgramCounter,
-    alu: ALU,
-    Control,
+    AluModule,
+    ControlModule,
     OutputModule,
   },
 

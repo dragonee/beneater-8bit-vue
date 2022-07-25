@@ -3,22 +3,27 @@
     <div class="title">Memory Register</div>
     <div>
       <button @click="setManualAddressingMode(prog)">PROG</button>
-      <led-diode :on="prog" color="red"></led-diode>
-      <led-diode :on="!prog" color="green"></led-diode>
+      <LedDiode :on="prog" color="red"></LedDiode>
+      <LedDiode :on="!prog" color="green"></LedDiode>
     </div>
 
     <div>
-      <led8bit color="yellow" :bits="4" :reverse="true" :word="addr"></led8bit>
+      <LedPanel
+        color="yellow"
+        :bits="4"
+        :reverse="true"
+        :word="addr"
+      ></LedPanel>
     </div>
 
-    <switches :config="config" :options="SWITCHES_OPTS"></switches>
+    <SwitchesPanel :config="config" :options="SWITCHES_OPTS"></SwitchesPanel>
   </div>
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-import LED8Bit from "./led8bit-line.vue";
-import Switches from "./switches-panel.vue";
+import LedPanel from "./LedPanel.vue";
+import SwitchesPanel from "./SwitchesPanel.vue";
 
 const { mapGetters, mapMutations } = createNamespacedHelpers(
   "memoryAddressRegister"
@@ -38,8 +43,8 @@ export default {
   }),
 
   components: {
-    led8bit: LED8Bit,
-    Switches,
+    LedPanel,
+    SwitchesPanel,
   },
 
   computed: {
