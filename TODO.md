@@ -1,7 +1,6 @@
 Comment code
 
 Make refactors:
- - rename led8bit
  - move assembler/disassembler code to own module
  - clock debug code - too much high-level logic?
  - setVcc, setVoltage
@@ -14,8 +13,6 @@ Features:
     CodeMirror + lexer-tokenizer
 
 It even can store programs in query param or hash editor.
-
-Remove django bindings?
 
 Update README
 

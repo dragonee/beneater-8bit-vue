@@ -1,16 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import HelloWorldComponent from "./components/hello_world.vue";
+import MainApplication from "./components/MainApplication.vue";
 
 import store from "./store";
 
-import LED from "./components/led-diode.vue";
+import LedDiode from "./components/LedDiode.vue";
 
 import "./assets/example.scss";
 
 Vue.use(Vuex);
-Vue.component("led-diode", LED);
+Vue.component("LedDiode", LedDiode);
 
 const vuexStore = new Vuex.Store(store);
 
@@ -63,7 +63,7 @@ vuexStore.watch(
 );
 
 const vm = new Vue({
-  render: (h) => h(HelloWorldComponent),
+  render: (h) => h(MainApplication),
   store: vuexStore,
 
   mounted() {

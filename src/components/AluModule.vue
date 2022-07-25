@@ -2,24 +2,24 @@
   <div class="module alu">
     <div class="title">ALU</div>
 
-    <led8bit color="red" :reverse="true" :word="sum"></led8bit>
+    <LedPanel color="red" :reverse="true" :word="sum"></LedPanel>
 
     <div>
-      <led-diode :on="cf" color="green"></led-diode> CF
-      <led-diode :on="zf" color="green"></led-diode> ZF
+      <LedDiode :on="cf" color="green"></LedDiode> CF
+      <LedDiode :on="zf" color="green"></LedDiode> ZF
     </div>
   </div>
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-import LED8Bit from "./led8bit-line.vue";
+import LedPanel from "./LedPanel.vue";
 
 const { mapGetters } = createNamespacedHelpers("alu");
 
 export default {
   components: {
-    led8bit: LED8Bit,
+    LedPanel,
   },
 
   computed: {

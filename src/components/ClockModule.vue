@@ -12,7 +12,7 @@
     <div>
       <button @click="toggleManualMode">X</button>
 
-      <led-diode :on="manualMode"></led-diode> Manual mode
+      <LedDiode :on="manualMode"></LedDiode> Manual mode
     </div>
 
     <div>
@@ -22,17 +22,17 @@
       >
         X
       </button>
-      <led-diode :on="manualButton"></led-diode> Manual button
+      <LedDiode :on="manualButton"></LedDiode> Manual button
     </div>
 
     <div>
       <button @click="toggleCountdown">X</button>
-      <led-diode :on="countdownMode"></led-diode> Countdown mode
+      <LedDiode :on="countdownMode"></LedDiode> Countdown mode
 
       <input type="text" v-model="countdownCounter" />
     </div>
 
-    <led-diode color="blue" :on="output"></led-diode> Output
+    <LedDiode color="blue" :on="output"></LedDiode> Output
   </div>
 </template>
 <script>

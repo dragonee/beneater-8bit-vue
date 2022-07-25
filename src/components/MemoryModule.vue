@@ -2,10 +2,10 @@
   <div class="module memory">
     <div class="title">Memory</div>
     <div>
-      <led8bit color="red" :reverse="true" :word="memory"></led8bit>
+      <LedPanel color="red" :reverse="true" :word="memory"></LedPanel>
     </div>
 
-    <switches :config="config" :options="SWITCHES_OPTS"></switches>
+    <SwitchesPanel :config="config" :options="SWITCHES_OPTS"></SwitchesPanel>
 
     <div>
       <button @click="pressWriteToMemoryButton">PWORD</button>
@@ -15,8 +15,8 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-import LED8Bit from "./led8bit-line.vue";
-import Switches from "./switches-panel.vue";
+import LedPanel from "./LedPanel.vue";
+import SwitchesPanel from "./SwitchesPanel.vue";
 
 const { mapGetters, mapActions } = createNamespacedHelpers("memory");
 
@@ -33,8 +33,8 @@ export default {
   }),
 
   components: {
-    led8bit: LED8Bit,
-    Switches,
+    LedPanel,
+    SwitchesPanel,
   },
 
   computed: {
