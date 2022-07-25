@@ -1,6 +1,10 @@
-# beneater
+# Ben Eater's 8-Bit Computer
 
-Ben Eater's computer in Vue. Works with node@v16
+Ben Eater's computer in Vue2. Works with node@v16.
+
+![Computer in action](computer.gif)
+
+For more information about the reference implementation of the computer, check out [Ben Eater's homepage](https://beneater.net/8bit).
 
 ## Recommended IDE Setup
 
