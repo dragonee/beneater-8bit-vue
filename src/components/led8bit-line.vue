@@ -1,11 +1,11 @@
 <template>
   <span>
     <span v-for="(n, index) in bits" :key="n">
-      <led
+      <led-diode
         :on="reverse ? word[bits - 1 - index] : word[index]"
         :color="computedColor(index)"
       >
-      </led>
+      </led-diode>
       {{ reverse ? safeLabels[bits - 1 - index] : safeLabels[index] }}
     </span>
   </span>

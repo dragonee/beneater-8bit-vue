@@ -35,7 +35,7 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-import LED8Bit from "./led8bit.vue";
+import LED8Bit from "./led8bit-line.vue";
 
 const { mapGetters, mapActions } = createNamespacedHelpers("control");
 

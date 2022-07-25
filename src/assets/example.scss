@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,200;1,500&display=swap");
 $led-colors: (
   "red": #e45151,
   "green": #2ce80a,
@@ -12,15 +12,30 @@ body {
   box-sizing: border-box;
 
   font-family: "Fira Sans Condensed", sans-serif;
+  
+  line-height: 1.41;
+}
+
+button {
+  border: 1px solid #a18467;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: 1px;
+
+  margin: 0 5px;
+
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 .led {
   display: inline-block;
   width: 1rem;
-  height: 1rem;
+  height: 1em;
   border-radius: 2rem;
 
-  vertical-align: top;
+  vertical-align: text-top;
 
   position: relative;
 
@@ -53,30 +68,54 @@ body {
 }
 
 .module {
-  padding: 1rem 3rem;
+  padding: 2rem 2.2rem 3.1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 
   position: relative;
 
-  border-radius: 4px;
-  background: #f6f6f6;
+  border-radius: 6px;
+  background: #c7beae;
 
   margin: 20px 10px;
 
   .title {
     position: absolute;
 
-    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 4px;
 
-    background: #f6f6f6;
+    font-weight: 500;
+    font-style: italic;
+
+    background: #a18467;
     text-align: center;
 
-    box-shadow: 0 2px 6px #f6f6f6;
-    padding: 0 6px;
-    border-radius: 4px;
+    padding: 6px 8px;
+    border-radius: 6px;
+
+    &:before, &:after {
+      content: "⚬";
+      display: inline-block;
+      padding: 0 10px;
+      color: black;
+    }
   }
 
-  flex: 1 0 21%;
+  input[type=text] {
+    background: rgba(255,255,255, 0.8);
+    border: 1px solid #a18467;
+    border-radius: 6px;
+    padding: 4px 2px;
+    font-size: 1rem;
+    text-align: center;
+    color: #5f4a35;
+    width: 3rem;
+    font-family: "Fira Sans Condensed", sans-serif;
+    
+  }
+
+  flex: 1 0 32%;
 }
 
 .board {
@@ -110,9 +149,11 @@ svg.display {
   border-radius: 4px;
 
   height: 4rem;
-  padding: 6px;
+  padding: 6px 10px;
 
-  display: inline-block;
+  display: block;
+  width: fit-content;
+  margin:auto;
 }
 
 .disasm {

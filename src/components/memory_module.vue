@@ -15,8 +15,8 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-import LED8Bit from "./led8bit.vue";
-import Switches from "./switches.vue";
+import LED8Bit from "./led8bit-line.vue";
+import Switches from "./switches-panel.vue";
 
 const { mapGetters, mapActions } = createNamespacedHelpers("memory");
 
