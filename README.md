@@ -1,6 +1,6 @@
 # beneater
 
-Ben Eater's computer in Vue
+Ben Eater's computer in Vue. Works with node@v16
 
 ## Recommended IDE Setup
 

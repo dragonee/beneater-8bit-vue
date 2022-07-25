@@ -1,130 +1,126 @@
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap");
 $led-colors: (
-    "red": #e45151,
-    "green": #2ce80a,
-    "blue": #7799f9,
-    "yellow": #ffe73b,
+  "red": #e45151,
+  "green": #2ce80a,
+  "blue": #7799f9,
+  "yellow": #ffe73b,
 );
 
 body {
-    background: #f1f1f1;
-    
-    box-sizing: border-box;
-    
-    font-family: 'Fira Sans Condensed', sans-serif;
+  background: #f1f1f1;
 
+  box-sizing: border-box;
+
+  font-family: "Fira Sans Condensed", sans-serif;
 }
 
 .led {
-    display: inline-block;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 2rem;
-    
-    vertical-align: top;
-    
-    position: relative;
-    
-    @each $class, $color in $led-colors {
-        &.#{$class} {
-            background-color: $color;
-            
-            &.off {
-                background-color: desaturate(darken($color, 40%), 20%);
-            }
-        }
-    }
-    
-    border: 1px solid rgba(0,0,0,0.2);
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 2rem;
 
-    &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        
-        top: 0.5rem;
-        left: 0.5rem;
-        
-        width: 0.4rem;
-        height: 0.4rem;
-        border-radius: 0.25rem;
-            
-        background-color: rgba(255, 255, 255, 0.4);
-    }
+  vertical-align: top;
 
+  position: relative;
+
+  @each $class, $color in $led-colors {
+    &.#{$class} {
+      background-color: $color;
+
+      &.off {
+        background-color: desaturate(darken($color, 40%), 20%);
+      }
+    }
+  }
+
+  border: 1px solid rgba(0, 0, 0, 0.2);
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+
+    top: 0.5rem;
+    left: 0.5rem;
+
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 0.25rem;
+
+    background-color: rgba(255, 255, 255, 0.4);
+  }
 }
 
-
 .module {
-    padding: 1rem 3rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
-    
-    position: relative;
-    
-    border-radius: 4px;
+  padding: 1rem 3rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+  position: relative;
+
+  border-radius: 4px;
+  background: #f6f6f6;
+
+  margin: 20px 10px;
+
+  .title {
+    position: absolute;
+
+    bottom: -0.5rem;
+
     background: #f6f6f6;
-    
-    margin: 20px 10px;
-    
-    .title {
-        position: absolute;
-        
-        bottom: -0.5rem;
-        
-        background: #f6f6f6;
-        text-align: center;
-        
-        box-shadow: 0 2px 6px #f6f6f6;
-        padding: 0 6px;
-        border-radius: 4px;
-    }
-    
-    flex: 1 0 21%;
+    text-align: center;
+
+    box-shadow: 0 2px 6px #f6f6f6;
+    padding: 0 6px;
+    border-radius: 4px;
+  }
+
+  flex: 1 0 21%;
 }
 
 .board {
-    display: flex;
-    
-    flex-wrap: wrap;
+  display: flex;
+
+  flex-wrap: wrap;
 }
 
 .output .number {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 svg.display {
-    fill: #320000;
-    
-    
-    @each $class, $color in $led-colors {
-        &.#{$class} .on {
-            fill: $color;
-        }
-        
-        &.#{$class} .off {
-            fill: desaturate(darken($color, 40%), 20%);
-        }
+  fill: #320000;
+
+  @each $class, $color in $led-colors {
+    &.#{$class} .on {
+      fill: $color;
     }
-    
-    height: 100%;
+
+    &.#{$class} .off {
+      fill: desaturate(darken($color, 40%), 20%);
+    }
+  }
+
+  height: 100%;
 }
 
 .display-box {
-    background-color: #290000;
-    border-radius: 4px;
-    
-    height: 4rem;
-    padding: 6px;
-    
-    display: inline-block;
+  background-color: #290000;
+  border-radius: 4px;
+
+  height: 4rem;
+  padding: 6px;
+
+  display: inline-block;
 }
 
 .disasm {
-    font-size: 1.2em;
-    color: #3d84c1;
-    padding: 0 6px;
-    background: aliceblue;
-    border: 1px solid;
-    border-radius: 2px;
-    margin-left: 10px;
+  font-size: 1.2em;
+  color: #3d84c1;
+  padding: 0 6px;
+  background: aliceblue;
+  border: 1px solid;
+  border-radius: 2px;
+  margin-left: 10px;
 }
