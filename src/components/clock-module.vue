@@ -2,7 +2,7 @@
   <div class="module clock">
     <div class="title">Clock</div>
     <div>
-      <input v-model="miliseconds" />
+      <input type="text" v-model="miliseconds" />
       <label
         ><input type="checkbox" v-model="enabled" /> Enable astable
         generator</label
@@ -12,7 +12,7 @@
     <div>
       <button @click="toggleManualMode">X</button>
 
-      <led :on="manualMode"></led> Manual mode
+      <led-diode :on="manualMode"></led-diode> Manual mode
     </div>
 
     <div>
@@ -22,17 +22,17 @@
       >
         X
       </button>
-      <led :on="manualButton"></led> Manual button
+      <led-diode :on="manualButton"></led-diode> Manual button
     </div>
 
     <div>
       <button @click="toggleCountdown">X</button>
-      <led :on="countdownMode"></led> Countdown mode
+      <led-diode :on="countdownMode"></led-diode> Countdown mode
 
-      <input v-model="countdownCounter" />
+      <input type="text" v-model="countdownCounter" />
     </div>
 
-    <led color="blue" :on="output"></led> Output
+    <led-diode color="blue" :on="output"></led-diode> Output
   </div>
 </template>
 <script>

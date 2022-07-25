@@ -1,9 +1,9 @@
 <template>
   <div class="board">
     <div class="module">
-      <div class="title">Hello world</div>
+      <div class="title">Ben Eater's 8-Bit computer</div>
 
-      <led :on="output" color="red"></led> Clock<br />
+      <led-diode :on="output" color="red"></led-diode> Clock<br />
 
       <led8bit :word="bus" color="blue" :reverse="true"></led8bit> BUS<br />
       <led8bit :word="aout" color="red" :reverse="true"></led8bit> A<br />
@@ -44,13 +44,13 @@
 <script>
 import { mapGetters } from "vuex";
 
-import Clock from "./clock.vue";
-import LED8Bit from "./led8bit.vue";
+import Clock from "./clock-module.vue";
+import LED8Bit from "./led8bit-line.vue";
 import MemoryAddressRegister from "./memory_address_register_module.vue";
 import Memory from "./memory_module.vue";
 import ProgramCounter from "./program_counter.vue";
-import ALU from "./alu.vue";
-import Control from "./control.vue";
+import ALU from "./alu-module.vue";
+import Control from "./control-module.vue";
 import OutputModule from "./output.vue";
 
 import { offsetToAddr, addrToOffset } from "../util";

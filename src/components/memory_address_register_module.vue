@@ -3,8 +3,8 @@
     <div class="title">Memory Register</div>
     <div>
       <button @click="setManualAddressingMode(prog)">PROG</button>
-      <led :on="prog" color="red"></led>
-      <led :on="!prog" color="green"></led>
+      <led-diode :on="prog" color="red"></led-diode>
+      <led-diode :on="!prog" color="green"></led-diode>
     </div>
 
     <div>
@@ -17,8 +17,8 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-import LED8Bit from "./led8bit.vue";
-import Switches from "./switches.vue";
+import LED8Bit from "./led8bit-line.vue";
+import Switches from "./switches-panel.vue";
 
 const { mapGetters, mapMutations } = createNamespacedHelpers(
   "memoryAddressRegister"

@@ -5,15 +5,15 @@
     <led8bit color="red" :reverse="true" :word="sum"></led8bit>
 
     <div>
-      <led :on="cf" color="green"></led> CF
-      <led :on="zf" color="green"></led> ZF
+      <led-diode :on="cf" color="green"></led-diode> CF
+      <led-diode :on="zf" color="green"></led-diode> ZF
     </div>
   </div>
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-import LED8Bit from "./led8bit.vue";
+import LED8Bit from "./led8bit-line.vue";
 
 const { mapGetters } = createNamespacedHelpers("alu");
 

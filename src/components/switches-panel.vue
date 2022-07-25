@@ -2,11 +2,11 @@
   <div>
     <span v-for="item in config" :key="item.key">
       <button @click="toggle(item)">{{ item.label }}</button>
-      <led
+      <led-diode
         v-if="!options.withoutLED"
         :on="state(item)"
         :color="item.color || 'red'"
-      ></led>
+      ></led-diode>
     </span>
   </div>
 </template>
