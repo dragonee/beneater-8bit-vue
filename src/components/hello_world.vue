@@ -51,7 +51,7 @@ import Memory from "./memory_module.vue";
 import ProgramCounter from "./program_counter.vue";
 import ALU from "./alu-module.vue";
 import Control from "./control-module.vue";
-import OutputModule from "./output.vue";
+import OutputModule from "./output_module.vue";
 
 import { offsetToAddr, addrToOffset } from "../util";
 
