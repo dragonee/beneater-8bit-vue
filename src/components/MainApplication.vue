@@ -46,7 +46,7 @@ import MemoryAddressRegister from "./MemoryAddressRegisterModule.vue";
 import MemoryModule from "./MemoryModule.vue";
 import ProgramCounter from "./ProgramCounter.vue";
 import AluModule from "./AluModule.vue";
-import ControlModule from "./ControlModule.vue"
+import ControlModule from "./ControlModule.vue";
 import OutputModule from "./OutputModule.vue";
 
 import { offsetToAddr, addrToOffset } from "../util";
