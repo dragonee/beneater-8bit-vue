@@ -26,7 +26,7 @@ The program will start counting down by 32 to 0 and back up.
 
 ## Modifying the test program
 
-A test program is available in the `MainApplication.vue` file in the `PROGRAM` constant.
+A test program is available in the `src/MainApplication.vue` file in the `PROGRAM` constant.
 
 Instruction addresses in the program are counted from 0. For example `jmp 4` means *jump to the position of the 5th instruction in the program*.
 

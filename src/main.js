@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import MainApplication from "./components/MainApplication.vue";
+import MainApplication from "./MainApplication.vue";
 
 import store from "./store";
 

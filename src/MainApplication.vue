@@ -40,18 +40,18 @@
 <script>
 import { mapGetters } from "vuex";
 
-import ClockModule from "./ClockModule.vue";
-import LedPanel from "./LedPanel.vue";
-import MemoryAddressRegister from "./MemoryAddressRegisterModule.vue";
-import MemoryModule from "./MemoryModule.vue";
-import ProgramCounter from "./ProgramCounter.vue";
-import AluModule from "./AluModule.vue";
-import ControlModule from "./ControlModule.vue";
-import OutputModule from "./OutputModule.vue";
+import ClockModule from "./components/ClockModule.vue";
+import LedPanel from "./components/LedPanel.vue";
+import MemoryAddressRegister from "./components/MemoryAddressRegisterModule.vue";
+import MemoryModule from "./components/MemoryModule.vue";
+import ProgramCounter from "./components/ProgramCounter.vue";
+import AluModule from "./components/AluModule.vue";
+import ControlModule from "./components/ControlModule.vue";
+import OutputModule from "./components/OutputModule.vue";
 
-import { offsetToAddr, addrToOffset } from "../util";
+import { offsetToAddr, addrToOffset } from "./util";
 
-import { sub, jz, out, jmp, add, jc, db } from "../instructions";
+import { sub, jz, out, jmp, add, jc, db } from "./instructions";
 
 const PROGRAM = [
   sub(9),
