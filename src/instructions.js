@@ -12,11 +12,11 @@ const OPCODE_LDI = 0b1000;
 const OPCODE_JC = 0b1001;
 const OPCODE_JZ = 0b1010;
 
-export const nop = () => instruction(OPCODE_NOP);
+export const nop = instruction(OPCODE_NOP);
 export const lda = (v) => instruction(OPCODE_LDA, v);
 export const add = (v) => instruction(OPCODE_ADD, v);
-export const out = () => instruction(OPCODE_OUT);
-export const hlt = () => instruction(OPCODE_HLT);
+export const out = instruction(OPCODE_OUT);
+export const hlt = instruction(OPCODE_HLT);
 export const sta = (v) => instruction(OPCODE_STA, v);
 export const jmp = (v) => instruction(OPCODE_JMP, v);
 export const sub = (v) => instruction(OPCODE_SUB, v);

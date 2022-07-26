@@ -56,11 +56,11 @@ import { sub, jz, out, jmp, add, jc, db } from "../instructions";
 const PROGRAM = [
   sub(9),
   jz(4),
-  out(),
+  out,
   jmp(0),
   add(9),
   jc(0),
-  out(),
+  out,
   jmp(4),
   db(10),
   db(32),
