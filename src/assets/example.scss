@@ -165,3 +165,26 @@ svg.display {
   border-radius: 2px;
   margin-left: 10px;
 }
+
+.led-panel {
+  &.labels-below {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    > span {
+      display: flex;
+      flex-direction: column;
+
+      width: 1.73em;
+
+      .led {
+        margin: auto;
+      }
+
+      .label {
+        text-align: center;
+      }
+    }
+  }
+}

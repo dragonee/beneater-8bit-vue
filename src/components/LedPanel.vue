@@ -1,12 +1,14 @@
 <template>
-  <span>
+  <span class="led-panel">
     <span v-for="(n, index) in bits" :key="n">
       <LedDiode
         :on="reverse ? word[bits - 1 - index] : word[index]"
         :color="computedColor(index)"
       >
       </LedDiode>
-      {{ reverse ? safeLabels[bits - 1 - index] : safeLabels[index] }}
+      <span class="label">
+        {{ reverse ? safeLabels[bits - 1 - index] : safeLabels[index] }}
+      </span>
     </span>
   </span>
 </template>

@@ -3,6 +3,7 @@
     <div class="title">Control Logic</div>
     <div>
       <LedPanel
+        class="labels-below"
         color="blue"
         :reverse="true"
         :word="outPositive"
