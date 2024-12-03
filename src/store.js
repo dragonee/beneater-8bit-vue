@@ -199,12 +199,13 @@ export default {
       const nopInstruction = [CO | MI, RO | II | CE];
 
       const ldaInstruction = [CO | MI, RO | II | CE, IO | MI, RO | AI];
+      const ldbInstruction = [CO | MI, RO | II | CE, IO | MI, RO | BI];
 
       const addInstruction = [
         CO | MI,
         RO | II | CE,
-        IO | MI,
-        RO | BI,
+        // IO | MI,
+        // RO | BI,
         EO | AI | FI,
       ];
 
@@ -219,12 +220,13 @@ export default {
       const subInstruction = [
         CO | MI,
         RO | II | CE,
-        IO | MI,
-        RO | BI,
+        // IO | MI,
+        // RO | BI,
         EO | SU | AI | FI,
       ];
 
-      const ldiInstruction = [CO | MI, RO | II | CE, IO | AI];
+      const ldaiInstruction = [CO | MI, RO | II | CE, IO | AI];
+      const ldbiInstruction = [CO | MI, RO | II | CE, IO | BI];
 
       const jcInstruction = [
         CO | MI,
@@ -292,13 +294,15 @@ export default {
       const [microcodeLow, microcodeHigh] = instructionsToMicrocode([
         nopInstruction,
         ldaInstruction,
+        ldbInstruction,
         addInstruction,
         outInstruction,
         hltInstuction,
         staInstruction,
         jmpInstruction,
         subInstruction,
-        ldiInstruction,
+        ldaiInstruction,
+        ldbiInstruction,
         jcInstruction,
         jzInstruction,
       ]);

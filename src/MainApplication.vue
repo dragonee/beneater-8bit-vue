@@ -3,12 +3,12 @@
     <div class="module">
       <div class="title">Ben Eater's 8-Bit computer</div>
 
-      <LedDiode :on="output" color="red"></LedDiode> Clock<br />
-
-      <LedPanel :word="bus" color="blue" :reverse="true"></LedPanel> BUS<br />
-      <LedPanel :word="aout" color="red" :reverse="true"></LedPanel> A<br />
-      <LedPanel :word="bout" color="red" :reverse="true"></LedPanel> B<br />
-      <LedPanel
+      <div class="flex">
+      <div class="board-display"><LedDiode :on="output" color="red"></LedDiode> Clock<br />
+      <LedPanel class="bus" :word="bus" color="blue" :reverse="true"></LedPanel> BUS<br />
+      <LedPanel :word="aout" color="red" :reverse="true"></LedPanel> <span class="register">A</span> <code class="value">{{ aoutNumber }}</code><br />
+      <LedPanel :word="bout" color="red" :reverse="true"></LedPanel> <span class="register">B</span> <code class="value">{{ boutNumber }}</code><br />
+      <LedPanel class="instruction"
         :word="iout"
         :color="[
           'blue',
@@ -22,18 +22,28 @@
         ]"
         :reverse="true"
       ></LedPanel>
-      I <code class="disasm">{{ disasm }}</code>
+      <span class="register">I</span> <code class="disasm">{{ disasm }}</code>
       <br />
+      <label><input type="checkbox" v-model="showPanels" /> Show panels</label>
+      </div>
 
-      <button @click="loadProgram">LOAD PROGRAM</button>
+      <div class="program">
+        <pre><code
+          v-for="([highlight, line], index) in programWithHighlight"
+          :class="{ highlight: highlight }"
+          :data-line="index"
+        >{{ line + "\n" }}</code></pre>
+        <button @click="loadProgram">LOAD PROGRAM</button>
+      </div>
+    </div>
     </div>
 
     <ClockModule></ClockModule>
-    <AluModule></AluModule>
-    <MemoryAddressRegister></MemoryAddressRegister>
-    <MemoryModule></MemoryModule>
-    <ProgramCounter></ProgramCounter>
-    <ControlModule></ControlModule>
+    <AluModule v-if="showPanels"></AluModule>
+    <MemoryAddressRegister v-if="showPanels"></MemoryAddressRegister>
+    <MemoryModule v-if="showPanels"></MemoryModule>
+    <ProgramCounter v-if="showPanels"></ProgramCounter>
+    <ControlModule v-if="showPanels"></ControlModule>
     <OutputModule></OutputModule>
   </div>
 </template>
@@ -49,40 +59,31 @@ import AluModule from "./components/AluModule.vue";
 import ControlModule from "./components/ControlModule.vue";
 import OutputModule from "./components/OutputModule.vue";
 
-import { offsetToAddr, addrToOffset } from "./util";
+import { addrToOffset } from "./util";
 
-import { sub, jz, out, jmp, add, jc, db } from "./instructions";
+import { assembleFromText, parseText } from "./instructions";
 
-const PROGRAM = [
-  sub(9),
-  jz(4),
-  out,
-  jmp(0),
-  add(9),
-  jc(0),
-  out,
-  jmp(4),
-  db(10),
-  db(32),
-].map((x) => offsetToAddr(x, 8));
+import text from "./text.S?raw";
+
+const PROGRAM = assembleFromText(text);
 
 const instructions = [
   "NOP",
   "LDA",
+  "LDB",
   "ADD",
-  "OUT",
 
+  "OUT",
   "HLT",
   "STA",
   "JMP",
+
   "SUB",
-
-  "LDI",
+  "LDAI",
+  "LDBI",
   "JC",
-  "JZ",
-  "???",
 
-  "???",
+  "JZ",
   "???",
   "???",
   "???",
@@ -90,11 +91,11 @@ const instructions = [
 
 const instructionHasArgument = [
   "LDA",
-  "ADD",
+  "LDB",
   "STA",
   "JMP",
-  "SUB",
-  "LDI",
+  "LDAI",
+  "LDBI",
   "JC",
   "JZ",
 ];
@@ -102,6 +103,7 @@ const instructionHasArgument = [
 export default {
   data: () => ({
     PROGRAM,
+    showPanels: true,
   }),
 
   components: {
@@ -137,6 +139,24 @@ export default {
       }
 
       return instructionName;
+    },
+
+    programWithHighlight() {
+      const instruction = this.disasm.toLowerCase();
+
+      return parseText(text).map((line, index) => {
+        return line === instruction ?
+          [true, line] :
+          [false, line];
+      });
+    },
+
+    aoutNumber() {
+      return addrToOffset(this.aout);
+    },
+
+    boutNumber() {
+      return addrToOffset(this.bout);
     },
   },
 

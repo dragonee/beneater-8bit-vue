@@ -2,6 +2,7 @@
   "name": "beneater",
   "version": "0.0.0",
   "scripts": {
+    "dev-docker": "vite --host 0.0.0.0 --port 5173",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --port 4173",
