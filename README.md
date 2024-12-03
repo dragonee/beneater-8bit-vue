@@ -26,33 +26,23 @@ The program will start counting down by 32 to 0 and back up.
 
 ## Modifying the test program
 
-A test program is available in the `src/MainApplication.vue` file in the `PROGRAM` constant.
+A test program is available in the `src/text.S` file.
 
 Instruction addresses in the program are counted from 0. For example `jmp 4` means *jump to the position of the 5th instruction in the program*.
 
 ```assembly
-sub 9   ; substract from address 9
-jz  4   ; jump-if-zero to address 4
-out     ; display A register
-jmp 0
-add 9   ; add from address 9
-jc  0   ; jump-if-carry to address 0
-out     ; display A register
-jmp 4
-db  10  ; value of 10, unused
-db  32  ; value of 32
+ldbi 1  @ Load the value 1 into register b
+ldai 12 @ Load the value 12 into register a
+out     @ Output the value in register a
+sub     @ Subtract the value in register b from register a
+jz 1    @ Jump to the first instruction if zero flag is set
+jmp 2   @ Jump to the second instruction
 ```
 
 ## Project Setup
 
 ```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
+docker compose up
 ```
 
 ### Compile and Minify for Production
